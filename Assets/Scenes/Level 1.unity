@@ -1765,7 +1765,9 @@ MonoBehaviour:
   groundDecceleration: 18
   airAcceleration: 6
   airDecceleration: 6
-  jumpForce: 700
+  jumpForce: 15
+  coyoteTime: 0.5
+  jumpBuffer: 0.5
   rayLength: 1.1
   groundLayer:
     serializedVersion: 2
