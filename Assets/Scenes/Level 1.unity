@@ -1612,6 +1612,7 @@ GameObject:
   - component: {fileID: 1452841118}
   - component: {fileID: 1452841117}
   - component: {fileID: 1452841116}
+  - component: {fileID: 1452841121}
   m_Layer: 0
   m_Name: player-idle-1
   m_TagString: Untagged
@@ -1762,16 +1763,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   groundAcceleration: 9
-  groundDecceleration: 18
+  groundDecceleration: 25
   airAcceleration: 6
   airDecceleration: 6
   jumpForce: 15
   coyoteTime: 0.5
   jumpBuffer: 0.5
   rayLength: 1.1
+  baseGravityFactor: 1
+  jumpCutGravityFactor: 2
+  fallGravityFactor: 1.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!61 &1452841121
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452841115}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.09429732, y: -0.91837394}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.0625, y: 2}
+    newSize: {x: 0.33, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7095383, y: 0.16325212}
+  m_EdgeRadius: 0
 --- !u!1 &2038299686
 GameObject:
   m_ObjectHideFlags: 0
