@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
+    public bool isInJumpPoint;
     
 
     private bool isJumping;
@@ -110,8 +111,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        lastOnGroundTime = coyoteTime; 
+    private void OnJumpPointEnter() {
+        isInJumpPoint = true;
+        Debug.Log("entered jump point");
+    }
+    
+    private void OnJumpPointExit() {
+        isInJumpPoint = false;
+        Debug.Log("exited jump point");
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
+            lastOnGroundTime = coyoteTime; 
+        }
     }
 
     void FixedUpdate(){
@@ -165,8 +178,7 @@ public class PlayerController : MonoBehaviour
 
     bool canJump()
     {
-        //return lastOnGroundTime > 0;
-        return lastOnGroundTime > 0 && !isJumping;
+        return (lastOnGroundTime > 0 && !isJumping) || isInJumpPoint;
     }
 
     bool canJumpCut() {
