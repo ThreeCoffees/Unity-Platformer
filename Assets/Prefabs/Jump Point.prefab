@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 1636169444792712167}
   - component: {fileID: 9104930907384822185}
   - component: {fileID: 2853860952350825725}
-  - component: {fileID: 5257133566007379801}
   m_Layer: 0
   m_Name: Jump Point
-  m_TagString: Untagged
+  m_TagString: JumpPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,16 +119,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
---- !u!114 &5257133566007379801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234474008046466958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e0ff191aa407c0878c642b8f8512df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 0.5

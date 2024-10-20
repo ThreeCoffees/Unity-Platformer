@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
-    public bool isInJumpPoint;
+    public bool isInJumpPoint {get; set;}
     
 
     private bool isJumping;
@@ -95,10 +95,8 @@ public class PlayerController : MonoBehaviour
             rigidBody.gravityScale = baseGravityFactor;
         }
 
-        
         // Debug 
         drawDebug();
-
     }
 
     void onJumpDown(){
@@ -111,19 +109,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnJumpPointEnter() {
-        isInJumpPoint = true;
-        Debug.Log("entered jump point");
-    }
-    
-    private void OnJumpPointExit() {
-        isInJumpPoint = false;
-        Debug.Log("exited jump point");
-    }
-
     private void OnTriggerStay2D(Collider2D other) {
         if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
             lastOnGroundTime = coyoteTime; 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("JumpPoint")){
+            Debug.Log("is in jump point");
+            isInJumpPoint = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.CompareTag("JumpPoint")){
+            Debug.Log("is no longer in jump point");
+            isInJumpPoint = false;
         }
     }
 
