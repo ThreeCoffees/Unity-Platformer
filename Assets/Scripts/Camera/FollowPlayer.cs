@@ -7,6 +7,7 @@ public class FollowPlayer : MonoBehaviour
     public GameObject PlayerTarget;
     public Vector3 offset;
     public float positionSmooth = 0.25f;
+
     public float minZoom = 5.0f;
     public float maxZoom = 10.0f;
     public float maxVelocity = 15.0f;
