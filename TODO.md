@@ -1,0 +1,15 @@
+TODO
+- [ ] grapple
+	- [ ] przechwytywanie myszy
+	- [ ] sprężyna
+	- [ ] projectile(?)
+	- [ ] damage state
+- [ ] ~~charge/double jump~~
+	- [ ] jump point jak w geometry dash/ori?
+- [ ] animacje
+	- [ ] chodzenie
+	- [ ] ruchome platformy
+	- [ ] błysk kryształu
+- [ ] śledzenie kamery
+	- [ ] zoom ujemny zależny od prędkości
+- [ ] keybindy lepsze
