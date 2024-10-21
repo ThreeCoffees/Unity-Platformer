@@ -117,14 +117,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("JumpPoint")){
-            Debug.Log("is in jump point");
             isInJumpPoint = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if(other.CompareTag("JumpPoint")){
-            Debug.Log("is no longer in jump point");
             isInJumpPoint = false;
         }
     }
