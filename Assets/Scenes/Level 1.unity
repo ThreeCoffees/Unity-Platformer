@@ -2116,7 +2116,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingPlatform (1)
       objectReference: {fileID: 0}
-=======
     - target: {fileID: 234474008046466958, guid: 6039257b5769a585d8bd69e07c6c5809, type: 3}
       propertyPath: m_Name
       value: Jump Point (1)
@@ -2538,7 +2537,6 @@ PrefabInstance:
       addedObject: {fileID: 2083251028}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
-=======
     - target: {fileID: 234474008046466958, guid: 6039257b5769a585d8bd69e07c6c5809, type: 3}
       propertyPath: m_Name
       value: Jump Point
