@@ -17,7 +17,7 @@ public class MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         NextPoint();
         MoveTowardsNextPoint();
@@ -39,5 +39,13 @@ public class MovingPlatform : MonoBehaviour
                 index = 0;
             }
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D other){
+        other.transform.SetParent(transform);
+    }
+
+    void OnCollisionExit2D(Collision2D other){
+        other.transform.SetParent(null);
     }
 }
