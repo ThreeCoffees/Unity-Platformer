@@ -26,9 +26,7 @@ public class MovingPlatform : MonoBehaviour
     }
 
     void MoveTowardsNextPoint(){
-        prev_position = transform.position;
         transform.position = Vector2.MoveTowards(transform.position, path[index].transform.position, moveSpeed * Time.deltaTime);
-        curr_velocity = (transform.position - prev_position) * Time.deltaTime;
     }
 
     void NextPoint() {
@@ -46,10 +44,10 @@ public class MovingPlatform : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other){
-        other.transform.SetParent(transform);
+        //other.transform.SetParent(transform);
     }
 
     void OnCollisionExit2D(Collision2D other){
-        other.transform.SetParent(null);
+        //other.transform.SetParent(null);
     }
 }

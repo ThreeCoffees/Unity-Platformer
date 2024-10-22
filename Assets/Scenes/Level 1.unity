@@ -2275,11 +2275,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 312103789711803903, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.714964
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 312103789711803903, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.775793
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 312103789711803903, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2329,6 +2329,14 @@ PrefabInstance:
       propertyPath: path.Array.data[2]
       value: 
       objectReference: {fileID: 2083251028}
+    - target: {fileID: 2443818454110060811, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2443818454110060811, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 4839038846280644839, guid: d3b02046f6dbcbe70b4459caee0cf2a3, type: 3}
       propertyPath: m_Name
       value: MovingPlatform
