@@ -30,7 +30,6 @@ public class MovingPlatform : MonoBehaviour
 
     void MoveTowardsNextPoint(){
         rb.velocity = (path[index].transform.position - transform.position).normalized * moveSpeed;
-        Debug.Log(rb.velocity);
     }
 
     void NextPoint() {
@@ -45,13 +44,5 @@ public class MovingPlatform : MonoBehaviour
                 index = 0;
             }
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D other){
-        //other.transform.SetParent(transform);
-    }
-
-    void OnCollisionExit2D(Collision2D other){
-        //other.transform.SetParent(null);
     }
 }

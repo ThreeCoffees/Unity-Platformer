@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GroundCheck
   - JumpPoint
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

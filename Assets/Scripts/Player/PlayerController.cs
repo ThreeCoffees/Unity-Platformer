@@ -31,11 +31,12 @@ public class PlayerController : MonoBehaviour
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
-    public bool isInJumpPoint {get; set;}
+    public bool isInJumpPoint {get; private set;}
     
 
     private bool isJumping;
     private bool isJumpCut;
+    private Rigidbody2D platform;
 
     private Vector2 moveInput;
 
@@ -118,17 +119,25 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = true;
+        } else if(other.CompareTag("MovingPlatform")){
+            platform = other.gameObject.GetComponent<Rigidbody2D>();
+            Debug.Log(platform);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = false;
+        } else if(other.CompareTag("MovingPlatform")){
+            platform = null;
         }
     }
 
     void FixedUpdate(){
         Run();
+        if(platform != null){
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x, rigidBody.velocity.y);
+        }
     }
 
     void Run() {
@@ -148,11 +157,15 @@ public class PlayerController : MonoBehaviour
             acceleration = 0;
         }
 
-        if(Mathf.Abs(moveInput.x) == 0 && lastOnGroundTime > 0){
-            float frictionAmmount = Mathf.Min(Math.Abs(rigidBody.velocity.x), Mathf.Abs(groundFriction));
-            frictionAmmount *= -Mathf.Sign(rigidBody.velocity.x);
+        // additional friction
+        // skipped if on a moving platform
+        if(platform == null){
+            if(Mathf.Abs(moveInput.x) == 0 && lastOnGroundTime > 0){
+                float frictionAmmount = Mathf.Min(Math.Abs(rigidBody.velocity.x), Mathf.Abs(groundFriction));
+                frictionAmmount *= -Mathf.Sign(rigidBody.velocity.x);
 
-            rigidBody.AddForce(Vector2.right * frictionAmmount, ForceMode2D.Impulse);
+                rigidBody.AddForce(Vector2.right * frictionAmmount, ForceMode2D.Impulse);
+            }
         }
 
         float movement = speedDiff * acceleration;
