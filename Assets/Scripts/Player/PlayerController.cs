@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
+    public bool isInJumpPoint {get; set;}
     
 
     private bool isJumping;
@@ -94,10 +95,8 @@ public class PlayerController : MonoBehaviour
             rigidBody.gravityScale = baseGravityFactor;
         }
 
-        
         // Debug 
         drawDebug();
-
     }
 
     void onJumpDown(){
@@ -110,8 +109,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        lastOnGroundTime = coyoteTime; 
+    private void OnTriggerStay2D(Collider2D other) {
+        if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
+            lastOnGroundTime = coyoteTime; 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("JumpPoint")){
+            isInJumpPoint = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.CompareTag("JumpPoint")){
+            isInJumpPoint = false;
+        }
     }
 
     void FixedUpdate(){
@@ -165,8 +178,7 @@ public class PlayerController : MonoBehaviour
 
     bool canJump()
     {
-        //return lastOnGroundTime > 0;
-        return lastOnGroundTime > 0 && !isJumping;
+        return (lastOnGroundTime > 0 && !isJumping) || isInJumpPoint;
     }
 
     bool canJumpCut() {
