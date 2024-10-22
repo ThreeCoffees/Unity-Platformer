@@ -7,11 +7,14 @@ public class MovingPlatform : MonoBehaviour
     [Range(0.1f, 30f)][SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool pingPong = false;
     [SerializeField] Transform[] path;
-    public Vector3 curr_velocity {get; private set;}
-    private Vector3 prev_position;
     private int index = 0;
     private int direction = 1;
-    private const float distanceThreshold = 0.01f;
+    [SerializeField]private const float distanceThreshold = 0.05f;
+
+    private Rigidbody2D rb;
+    void Awake() {
+        rb = GetComponent<Rigidbody2D>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +29,8 @@ public class MovingPlatform : MonoBehaviour
     }
 
     void MoveTowardsNextPoint(){
-        transform.position = Vector2.MoveTowards(transform.position, path[index].transform.position, moveSpeed * Time.deltaTime);
+        rb.velocity = (path[index].transform.position - transform.position).normalized * moveSpeed;
+        Debug.Log(rb.velocity);
     }
 
     void NextPoint() {
