@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
                 rigidBody.AddForce(Vector2.right * frictionAmmount, ForceMode2D.Impulse);
             }
-        }
+        } 
 
         float movement = speedDiff * acceleration;
 
