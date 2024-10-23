@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate(){
         Run();
         if(platform != null){
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
         }
     }
 
