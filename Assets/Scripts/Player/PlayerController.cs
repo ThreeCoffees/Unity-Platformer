@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
+    public bool isInJumpPoint {get; set;}
     
 
     private bool isJumping;
@@ -84,34 +85,54 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
+        // Gravity
         if (rigidBody.velocity.y < 0) {
+            // if falling
             rigidBody.gravityScale = baseGravityFactor * fallGravityFactor;
         } else if (isJumpCut) {
+            // if player stopped the jump early
             rigidBody.gravityScale = baseGravityFactor * jumpCutGravityFactor;
         } else if (isJumping && Mathf.Abs(rigidBody.velocity.y) < hangThreshold) {
+            // if we are in the highest point during the jump
             rigidBody.gravityScale = baseGravityFactor * hangGravityFactor;
         } else {
+            // if we are just doing normal stuff
             rigidBody.gravityScale = baseGravityFactor;
         }
 
-        
         // Debug 
         drawDebug();
-
     }
 
     void onJumpDown(){
+        // starts the timer in which we check whether or not we can jump
         lastJumpInputTime = jumpBuffer;
     }
 
     void onJumpUp(){
+        // releasing jump input stops the jump early
         if(canJumpCut()) {
             isJumpCut = true;
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        lastOnGroundTime = coyoteTime; 
+    private void OnTriggerStay2D(Collider2D other) {
+        // checks for collision and if it's happening starts the timer in which we can still jump after it stops.
+        if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
+            lastOnGroundTime = coyoteTime; 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("JumpPoint")){
+            isInJumpPoint = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.CompareTag("JumpPoint")){
+            isInJumpPoint = false;
+        }
     }
 
     void FixedUpdate(){
@@ -152,6 +173,11 @@ public class PlayerController : MonoBehaviour
         // prevent jumping multiple times on one input
         lastJumpInputTime = 0;
         lastOnGroundTime = 0;
+        // prevent the 2x jump when mashing space
+        if(isInJumpPoint){
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+        }
+        isInJumpPoint = false;
 
         float force = jumpForce;
 
@@ -165,8 +191,7 @@ public class PlayerController : MonoBehaviour
 
     bool canJump()
     {
-        //return lastOnGroundTime > 0;
-        return lastOnGroundTime > 0 && !isJumping;
+        return (lastOnGroundTime > 0 && !isJumping) || isInJumpPoint;
     }
 
     bool canJumpCut() {
