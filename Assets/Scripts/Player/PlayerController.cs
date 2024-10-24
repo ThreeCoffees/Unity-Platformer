@@ -165,6 +165,10 @@ public class PlayerController : MonoBehaviour
         // prevent jumping multiple times on one input
         lastJumpInputTime = 0;
         lastOnGroundTime = 0;
+        if(isInJumpPoint){
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+        }
+        isInJumpPoint = false;
 
         float force = jumpForce;
 
