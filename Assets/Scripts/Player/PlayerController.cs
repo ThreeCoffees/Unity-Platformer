@@ -85,13 +85,18 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
+        // Gravity
         if (rigidBody.velocity.y < 0) {
+            // if falling
             rigidBody.gravityScale = baseGravityFactor * fallGravityFactor;
         } else if (isJumpCut) {
+            // if player stopped the jump early
             rigidBody.gravityScale = baseGravityFactor * jumpCutGravityFactor;
         } else if (isJumping && Mathf.Abs(rigidBody.velocity.y) < hangThreshold) {
+            // if we are in the highest point during the jump
             rigidBody.gravityScale = baseGravityFactor * hangGravityFactor;
         } else {
+            // if we are just doing normal stuff
             rigidBody.gravityScale = baseGravityFactor;
         }
 
@@ -100,16 +105,19 @@ public class PlayerController : MonoBehaviour
     }
 
     void onJumpDown(){
+        // starts the timer in which we check whether or not we can jump
         lastJumpInputTime = jumpBuffer;
     }
 
     void onJumpUp(){
+        // releasing jump input stops the jump early
         if(canJumpCut()) {
             isJumpCut = true;
         }
     }
 
     private void OnTriggerStay2D(Collider2D other) {
+        // checks for collision and if it's happening starts the timer in which we can still jump after it stops.
         if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
             lastOnGroundTime = coyoteTime; 
         }
@@ -165,6 +173,7 @@ public class PlayerController : MonoBehaviour
         // prevent jumping multiple times on one input
         lastJumpInputTime = 0;
         lastOnGroundTime = 0;
+        // prevent the 2x jump when mashing space
         if(isInJumpPoint){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
         }
