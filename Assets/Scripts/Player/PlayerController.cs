@@ -25,14 +25,20 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangGravityFactor = 0.5f;
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
+    private int score = 0;
+
     public LayerMask groundLayer;
 
     public Rigidbody2D rigidBody {get; private set;}
+    public Animator animator {get; private set;}
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
     public bool isInJumpPoint {get; private set;}
     
+    private bool isFacingRight = true;
+    private bool isInLadder = false;
+    private bool isClimbing = false;
 
     private bool isJumping;
     private bool isJumpCut;
@@ -44,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -62,6 +69,11 @@ public class PlayerController : MonoBehaviour
         // Input
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
+        if(moveInput.x >= 0.01){
+            isFacingRight = true;
+        } else if(moveInput.x <= -0.01){
+            isFacingRight = false;
+        }
 
         if (Input.GetButtonDown("Jump")) {
             onJumpDown();
@@ -86,6 +98,11 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
+        if (isInLadder && moveInput.y != 0){
+            isClimbing = true;
+            animator.SetBool("isClimbing", true);
+        }
+
         // Gravity
         if (rigidBody.velocity.y < 0) {
             // if falling
@@ -101,6 +118,10 @@ public class PlayerController : MonoBehaviour
             rigidBody.gravityScale = baseGravityFactor;
         }
 
+        animator.SetBool("isGrounded", canJump());
+        animator.SetBool("isWalking", Mathf.Abs(rigidBody.velocity.x) > 0.1);
+
+        transform.localScale = isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
         // Debug 
         drawDebug();
     }
@@ -120,6 +141,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other) {
         // checks for collision and if it's happening starts the timer in which we can still jump after it stops.
         if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
+            animator.SetBool("isGrounded", true);
             lastOnGroundTime = coyoteTime; 
         }
     }
@@ -129,7 +151,14 @@ public class PlayerController : MonoBehaviour
             isInJumpPoint = true;
         } else if(other.CompareTag("MovingPlatform")){
             platform = other.gameObject.GetComponent<Rigidbody2D>();
-            Debug.Log(platform);
+        } 
+        if(other.CompareTag("Bonus")){
+            score += 1;
+            other.gameObject.SetActive(false);
+            Debug.Log(score);
+        }
+        if(other.CompareTag("Ladder")){
+            isInLadder = true;
         }
     }
 
@@ -139,10 +168,21 @@ public class PlayerController : MonoBehaviour
         } else if(other.CompareTag("MovingPlatform")){
             platform = null;
         }
+        if(other.CompareTag("Ladder")){
+            isInLadder = false;
+            isClimbing = false;
+            animator.SetBool("isClimbing", false);
+        }
     }
 
     void FixedUpdate(){
         Run();
+        if(isClimbing == true){
+            rigidBody.gravityScale = 0;
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveInput.y * moveSpeed);
+        } else {
+            rigidBody.gravityScale = baseGravityFactor;
+        }
         if(platform != null){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
         }
