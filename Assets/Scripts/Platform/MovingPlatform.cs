@@ -19,7 +19,6 @@ public class MovingPlatform : MonoBehaviour
 
 	public void Activate(bool activeted) {
 		paused = !activeted;
-		Debug.Log("Platform activated: " + activeted);
 	}
 
     void Start()
