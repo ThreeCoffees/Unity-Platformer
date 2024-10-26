@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private bool isFacingRight = true;
     private bool isInLadder = false;
     private bool isClimbing = false;
+    private bool isInWindZone = false;
 
     private bool isJumping;
     private bool isJumpCut;
@@ -160,6 +161,10 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Ladder")){
             isInLadder = true;
         }
+        if(other.CompareTag("WindZone")){
+            isInWindZone = true;
+            Debug.Log(isInWindZone);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
@@ -172,6 +177,10 @@ public class PlayerController : MonoBehaviour
             isInLadder = false;
             isClimbing = false;
             animator.SetBool("isClimbing", false);
+        }
+        if(other.CompareTag("WindZone")){
+            isInWindZone = false;
+            Debug.Log(isInWindZone);
         }
     }
 
