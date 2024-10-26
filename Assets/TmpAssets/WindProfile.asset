@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WindProfile
   m_EditorClassIdentifier: 
   m_Angles: []
-  m_FillTexture: {fileID: 2800000, guid: 9d6458e80d5444f1ba56b881ef7c8e87, type: 3}
+  m_FillTexture: {fileID: 2800000, guid: 8036118fab0f4ec12a0a1a2d332aec89, type: 3}
   m_CornerSprites:
   - m_CornerType: 0
     m_Sprites:

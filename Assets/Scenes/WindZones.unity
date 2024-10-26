@@ -2498,6 +2498,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4790264669793280992, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 8036118fab0f4ec12a0a1a2d332aec89, type: 3}
+    - target: {fileID: 4790264669793280992, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5591099495507666598, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
       propertyPath: m_Creator
       value: 
@@ -2739,10 +2747,6 @@ PrefabInstance:
       propertyPath: m_DynamicOccludee
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4790264669793280992, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 29d95ba0695618aae9ab4a97e1d79bbb, type: 2}
     - target: {fileID: 5591099495507666598, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
       propertyPath: m_Creator
       value: 
