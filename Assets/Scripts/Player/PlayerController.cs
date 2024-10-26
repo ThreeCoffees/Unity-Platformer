@@ -163,7 +163,6 @@ public class PlayerController : MonoBehaviour
         }
         if(other.CompareTag("WindZone")){
             isInWindZone = true;
-            Debug.Log(isInWindZone);
         }
     }
 
@@ -180,7 +179,6 @@ public class PlayerController : MonoBehaviour
         }
         if(other.CompareTag("WindZone")){
             isInWindZone = false;
-            Debug.Log(isInWindZone);
         }
     }
 
@@ -194,6 +192,9 @@ public class PlayerController : MonoBehaviour
         }
         if(platform != null){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
+        }
+        if(isInWindZone){
+            rigidBody.AddForce(Vector2.right * 30.0f, ForceMode2D.Force);
         }
     }
 
