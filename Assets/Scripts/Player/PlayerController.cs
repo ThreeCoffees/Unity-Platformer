@@ -118,8 +118,8 @@ public class PlayerController : MonoBehaviour
             rigidBody.gravityScale = baseGravityFactor;
         }
 
-        animator.SetBool("isGrounded", canJump());
-        animator.SetBool("isWalking", Mathf.Abs(rigidBody.velocity.x) > 0.1);
+        animator.SetBool("isGrounded", lastOnGroundTime > 0);
+        animator.SetBool("isWalking", Mathf.Abs(moveInput.x) > 0.1);
 
         transform.localScale = isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
         // Debug 
