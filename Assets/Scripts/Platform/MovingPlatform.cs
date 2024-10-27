@@ -6,6 +6,7 @@ public class MovingPlatform : MonoBehaviour
 {
     [Range(0.1f, 30f)][SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool pingPong = false;
+    [SerializeField] private bool paused = false;
     [SerializeField] Transform[] path;
     private int index = 0;
     private int direction = 1;
@@ -15,21 +16,25 @@ public class MovingPlatform : MonoBehaviour
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
     }
-    // Start is called before the first frame update
+
+	public void Activate(bool activeted) {
+		paused = !activeted;
+	}
+
     void Start()
     {
         transform.position = path[index].transform.position;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        NextPoint();
-        MoveTowardsNextPoint();
+		NextPoint();
+		MoveTowardsNextPoint();
     }
 
     void MoveTowardsNextPoint(){
-        rb.velocity = (path[index].transform.position - transform.position).normalized * moveSpeed;
+		if(paused) rb.velocity = Vector2.zero;
+		else       rb.velocity = (path[index].transform.position - transform.position).normalized * moveSpeed;
     }
 
     void NextPoint() {
