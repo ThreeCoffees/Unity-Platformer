@@ -11,7 +11,7 @@ public class Lever : MonoBehaviour
 	[SerializeField] [Range(100, 2000)] private float pullAnimationSpeed = 500f;
 
 	[SerializeField] private GameObject HandleAnchor;
-	[SerializeField] private GameObject Aura;
+	[SerializeField] private GameObject Bulb;
 	[SerializeField] private UnityEvent<bool> OnLeverPulled = new UnityEvent<bool>();
 	
 	private Rigidbody2D playerInBounds = null;
@@ -52,8 +52,8 @@ public class Lever : MonoBehaviour
 
         HandleAnchor.transform.localRotation = Quaternion.Euler(0, 0, currentHandleAngle);
 
-		// show/hide aura
-		Aura.SetActive(isEnabled);
+		// show/hide bulb
+		Bulb.SetActive(isEnabled);
     }
 
 	private void OnTriggerEnter2D(Collider2D other) {
@@ -68,6 +68,11 @@ public class Lever : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D other) {
 		if (other.CompareTag("Player")) {
+			Vector2 playerLocal = transform.InverseTransformPoint(playerInBounds.transform.position);
+			bool prevIsEnabled = isEnabled;
+			isEnabled = playerLocal.x > -0.5 ^ invert;
+			if(prevIsEnabled != isEnabled) OnLeverPulled.Invoke(isEnabled);
+
 			playerInBounds = null;
 		}
 	}
