@@ -41,8 +41,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Rotation: 0.63
-    - _Speed: 0.44
+    - _Rotation: 0
+    - _Speed: 1
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &2429590268652055059

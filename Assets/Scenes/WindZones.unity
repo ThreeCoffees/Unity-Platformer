@@ -2498,6 +2498,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3762065181510656562, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
+      propertyPath: strength
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762065181510656562, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
+      propertyPath: direction
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4790264669793280992, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -2549,6 +2557,14 @@ PrefabInstance:
     - target: {fileID: 6852427548238133872, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262373068033636194, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
+      propertyPath: strength
+      value: 10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262373068033636194, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
+      propertyPath: direction
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2742,10 +2758,6 @@ PrefabInstance:
     - target: {fileID: 431297225136776636, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
       propertyPath: m_Name
       value: WindZone
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790264669793280992, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5591099495507666598, guid: b9b063c2475ad744e8e10842e2cb5db5, type: 3}
       propertyPath: m_Creator

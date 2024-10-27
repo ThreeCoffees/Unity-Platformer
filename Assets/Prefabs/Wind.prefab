@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6852427548238133872}
-  - component: {fileID: 8262373068033636194}
   - component: {fileID: 4790264669793280992}
   - component: {fileID: 5591099495507666598}
   - component: {fileID: 6084528586165207310}
+  - component: {fileID: 3762065181510656562}
   m_Layer: 0
-  m_Name: WindZone
+  m_Name: Wind
   m_TagString: WindZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,20 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8262373068033636194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431297225136776636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db63dc7c2965c255b5394f795ae756e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 0
-  strength: 30
 --- !u!1971053207 &4790264669793280992
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0
@@ -59,7 +45,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -346,3 +332,17 @@ PolygonCollider2D:
       - {x: -2.754359, y: 0.37233156}
       - {x: -2.7848215, y: 0.95067906}
   m_UseDelaunayMesh: 0
+--- !u!114 &3762065181510656562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431297225136776636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db63dc7c2965c255b5394f795ae756e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+  strength: 30

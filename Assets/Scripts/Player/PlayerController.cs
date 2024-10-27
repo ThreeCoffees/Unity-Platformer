@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private bool isFacingRight = true;
     private bool isInLadder = false;
     private bool isClimbing = false;
-    private bool isInWindZone = false;
+    private Vector2 windForce = Vector2.zero;
 
     private bool isJumping;
     private bool isJumpCut;
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
             isInLadder = true;
         }
         if(other.CompareTag("WindZone")){
-            isInWindZone = true;
+            windForce = other.gameObject.GetComponent<Wind>().windForce;
         }
     }
 
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isClimbing", false);
         }
         if(other.CompareTag("WindZone")){
-            isInWindZone = false;
+            windForce = Vector2.zero;
         }
     }
 
@@ -193,9 +193,7 @@ public class PlayerController : MonoBehaviour
         if(platform != null){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
         }
-        if(isInWindZone){
-            rigidBody.AddForce(Vector2.right * 30.0f, ForceMode2D.Force);
-        }
+        rigidBody.AddForce(windForce, ForceMode2D.Force);
     }
 
     void Run() {
