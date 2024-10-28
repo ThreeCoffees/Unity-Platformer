@@ -41,6 +41,10 @@ public class EnemyController : MonoBehaviour
                 isFacingRight = true;
             }
         }
+
+        // Flip
+        // isFacingRight is negated - enemy sprites look leftwards
+        transform.localScale = !isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
     }
 
     void Awake()
