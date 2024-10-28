@@ -2595,6 +2595,7 @@ GameObject:
   - component: {fileID: 1675128856}
   - component: {fileID: 1675128855}
   - component: {fileID: 1675128858}
+  - component: {fileID: 1675128859}
   m_Layer: 8
   m_Name: Eagle
   m_TagString: Enemy
@@ -2612,7 +2613,7 @@ Animator:
   m_GameObject: {fileID: 1675128854}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 70cb523e93acca84c8f56f3c83e021d1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6f462620e81c7be4f9c392f019bc7c72, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2702,8 +2703,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4988bf962c541742900b1a112459326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRange: 1
-  moveSpeed: 0.1
+  moveRange: 9
+  moveSpeed: 3
+--- !u!70 &1675128859
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675128854}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 2}
+  m_Direction: 0
 --- !u!1001 &1936020982
 PrefabInstance:
   m_ObjectHideFlags: 0

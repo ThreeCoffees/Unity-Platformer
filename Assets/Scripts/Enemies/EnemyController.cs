@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
 
     private bool isMovingRight = true;
     private bool isFacingRight = true;
+
+    private bool isDead = true;
     private Animator animator;
 
     private float startPositionX;
@@ -45,6 +47,10 @@ public class EnemyController : MonoBehaviour
         // Flip
         // isFacingRight is negated - enemy sprites look leftwards
         transform.localScale = !isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
+
+        if (isDead) {
+            animator.SetBool("isDead", true);
+        }
     }
 
     void Awake()
