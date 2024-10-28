@@ -9,6 +9,7 @@ TagManager:
   - MovingPlatform
   - Bonus
   - Ladder
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Ground
   - Ladder
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -58,11 +59,11 @@ TagManager:
   - name: Platforms
     uniqueID: 1638461457
     locked: 0
-  - name: Player
-    uniqueID: 3251378531
-    locked: 0
   - name: Enemies
     uniqueID: 3259254299
+    locked: 0
+  - name: Player
+    uniqueID: 3251378531
     locked: 0
   - name: Foreground
     uniqueID: 631625933
