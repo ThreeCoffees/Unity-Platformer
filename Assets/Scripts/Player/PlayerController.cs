@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangGravityFactor = 0.5f;
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
+    [Header("Features")]
+    [Range(1, 10)] [SerializeField] private int lives = 3;
+    [SerializeField] private Vector2 respawnPoint = new Vector2(0,0);
     private int score = 0;
 
     public LayerMask groundLayer;
@@ -121,6 +124,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGrounded", lastOnGroundTime > 0);
         animator.SetBool("isWalking", Mathf.Abs(moveInput.x) > 0.1);
 
+        // Flip sprite
         transform.localScale = isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
         // Debug 
         drawDebug();
@@ -159,6 +163,20 @@ public class PlayerController : MonoBehaviour
         }
         if(other.CompareTag("Ladder")){
             isInLadder = true;
+        }
+        if(other.CompareTag("Enemy")){
+            // If the player is above the enemy, kill it
+            if(this.transform.position.y > other.transform.position.y){
+                score += 1;
+                Debug.Log("Enemy killed");
+            } else { // lose a life
+                lives -= 1;
+                if(lives <= 0){
+                    transform.position = respawnPoint;
+                    lives = 3;
+                }
+                Debug.Log("Lives: " + lives);
+            }
         }
     }
 

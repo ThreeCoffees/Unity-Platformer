@@ -58,4 +58,19 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         startPositionX = transform.position.x;
     }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Player")) {
+            if (other.transform.position.y > this.transform.position.y) {
+                isDead = true;
+                animator.SetBool("isDead", true);
+                StartCoroutine(KillOnAnimationEnd());
+            }
+        }
+    }
+
+    IEnumerator KillOnAnimationEnd() {
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
+    }
 }
