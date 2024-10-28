@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     private bool isMovingRight = true;
     private bool isFacingRight = true;
 
-    private bool isDead = true;
+    private bool isDead = false;
     private Animator animator;
 
     private float startPositionX;
