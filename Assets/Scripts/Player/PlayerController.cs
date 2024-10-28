@@ -168,7 +168,9 @@ public class PlayerController : MonoBehaviour
             // If the player is above the enemy, kill it
             if(this.transform.position.y > other.transform.position.y){
                 score += 1;
+                other.gameObject.SetActive(false);
                 Debug.Log("Enemy killed");
+                // Jump(); // FIXME: very buggy
             } else { // lose a life
                 lives -= 1;
                 if(lives <= 0){
