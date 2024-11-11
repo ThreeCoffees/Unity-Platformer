@@ -48,8 +48,12 @@ public class EnemyController : MonoBehaviour
         // isFacingRight is negated - enemy sprites look leftwards
         transform.localScale = !isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
 
-        if (isDead) {
-            animator.SetBool("isDead", true);
+        // if (isDead) { // Obsolete? See OnTriggerEnter2D()
+        //     animator.SetBool("isDead", true);
+        // }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Eagle-Dead")) {
+            Destroy(gameObject);
         }
     }
 
@@ -59,18 +63,14 @@ public class EnemyController : MonoBehaviour
         startPositionX = transform.position.x;
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnTriggerEnter2D(Collider2D other) { // NOTE: Copy of PlayerController's actions
         if (other.CompareTag("Player")) {
             if (other.transform.position.y > this.transform.position.y) {
                 isDead = true;
                 animator.SetBool("isDead", true);
-                StartCoroutine(KillOnAnimationEnd());
+                animator.SetTrigger("Hurt");
+                Debug.Log("Enemy is dead");
             }
         }
-    }
-
-    IEnumerator KillOnAnimationEnd() {
-        yield return new WaitForSeconds(1.0f);
-        gameObject.SetActive(false);
     }
 }
