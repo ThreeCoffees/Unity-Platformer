@@ -12,7 +12,7 @@ public class Wind : MonoBehaviour
     Material material;
     // Start is called before the first frame update
     void Start()
-    {
+{
         material = GetComponent<UnityEngine.U2D.SpriteShapeRenderer>().material;
         material.SetFloat("_Rotation", direction * Mathf.Deg2Rad);
         material.SetFloat("_Speed", strength / 30.0f);
@@ -21,10 +21,5 @@ public class Wind : MonoBehaviour
         Debug.Log(windForce);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
