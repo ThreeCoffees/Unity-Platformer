@@ -118,8 +118,9 @@ public class PlayerController : MonoBehaviour
             rigidBody.gravityScale = baseGravityFactor;
         }
 
-        animator.SetBool("isGrounded", lastOnGroundTime > 0);
+        //animator.SetBool("isGrounded", lastOnGroundTime > 0);
         animator.SetBool("isWalking", Mathf.Abs(moveInput.x) > 0.1);
+        animator.SetBool("isFalling", rigidBody.velocity.y < 0.1);
 
         transform.localScale = isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
         // Debug 
@@ -163,6 +164,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D other) {
+        if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
+            animator.SetBool("isGrounded", false);
+        }   
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = false;
         } else if(other.CompareTag("MovingPlatform")){
