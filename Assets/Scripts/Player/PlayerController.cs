@@ -171,7 +171,9 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.SetActive(false);
                 Debug.Log("Enemy killed");
                 // Jump(); // FIXME: very buggy
-            } else { // lose a life
+            // Else the player gets hurt
+            } else {
+                animator.SetTrigger("Hurt");
                 lives -= 1;
                 if(lives <= 0){
                     transform.position = respawnPoint;
