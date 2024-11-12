@@ -28,7 +28,17 @@ public class PlayerController : MonoBehaviour
     [Header("Features")]
     [Range(1, 10)] [SerializeField] private int lives = 3;
     [SerializeField] private Vector2 respawnPoint = new Vector2(0,0);
-    private int score = 0;
+
+    private int _score = 0;
+    public int score {
+        get {
+            return _score;
+        }
+        set {
+            _score = value;
+            Debug.Log("Score: " + _score);
+        }
+    }
 
     public LayerMask groundLayer;
 
@@ -150,6 +160,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = true;
@@ -159,7 +171,6 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Bonus")){
             score += 1;
             other.gameObject.SetActive(false);
-            Debug.Log(score);
         }
         if(other.CompareTag("Ladder")){
             isInLadder = true;
