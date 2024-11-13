@@ -16,8 +16,16 @@ public class Finish : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Game Over");
+        if(other.CompareTag("Player")){
+            PlayerController pc = other.gameObject.GetComponentInParent<PlayerController>();
+            if(pc.keysFound == pc.keysNumber){
+                Debug.Log("Game Over");
+            }
+            else {
+                Debug.Log("Not enough keys");
+            }
+        }
     }
 }

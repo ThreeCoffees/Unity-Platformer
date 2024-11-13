@@ -10,6 +10,8 @@ TagManager:
   - Bonus
   - Ladder
   - Enemy
+  - Key
+  - Heart
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Ground
   - Ladder
   - Enemy
-  - 
+  - GroundCheck
   - 
   - 
   - 
