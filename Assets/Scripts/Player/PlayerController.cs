@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
     [Header("Features")]
-    [Range(1, 10)] [SerializeField] private int lives = 3;
+    [Range(1, 10)] [SerializeField] private int maxLives = 3;
     [SerializeField] private Vector2 respawnPoint = new Vector2(0,0);
 
     private int _score = 0;
@@ -37,6 +37,21 @@ public class PlayerController : MonoBehaviour
         set {
             _score = value;
             Debug.Log("Score: " + _score);
+        }
+    }
+
+    private int _lives;
+    public int lives {
+        get {
+            return _lives;
+        }
+        set {
+            _lives = value;
+            Debug.Log("Lives: " + _lives);
+            if(_lives <= 0){
+                transform.position = respawnPoint;
+                lives = maxLives;
+            }
         }
     }
 
@@ -62,6 +77,8 @@ public class PlayerController : MonoBehaviour
     // On component creation
     private void Awake()
     {
+        lives = maxLives;
+        transform.position = respawnPoint;
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -175,34 +192,16 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Ladder")){
             isInLadder = true;
         }
-        /*
-        if(other.CompareTag("Enemy")){
-            // If the player is above the enemy, kill it
-            if(this.transform.position.y > other.transform.position.y){
-                IncreaseScore(1);
-                // other.gameObject.SetActive(false);
-                Debug.Log("Enemy killed");
-                // Jump(); // FIXME: very buggy
-            // Else the player gets hurt
-            } else {
-                TakeDamage(1);
-            }
-        }*/
     }
 
     public void KilledEnemy(int points){
-        score += points;
         Debug.Log("Enemy killed");
+        score += points;
     }
 
     public void TakeDamage(int damage){
         animator.SetTrigger("Hurt");
         lives -= damage;
-        if(lives <= 0){
-            transform.position = respawnPoint;
-            lives = 3;
-        }
-        Debug.Log("Lives: " + lives);
     }
 
     private void OnTriggerExit2D(Collider2D other) {
