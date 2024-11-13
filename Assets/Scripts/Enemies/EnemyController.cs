@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private float moveRange = 3.0f;
     [Range(0.01f, 20.0f)] [SerializeField] private float moveSpeed = 3.0f;
+    [SerializeField] private int points = 1;
+    [SerializeField] private int damage = 1;
 
     private bool isMovingRight = true;
     private bool isFacingRight = true;
@@ -64,13 +66,23 @@ public class EnemyController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) { // NOTE: Copy of PlayerController's actions
+        if (isDead == true) {
+            return;
+        }
         if (other.CompareTag("Player")) {
             if (other.transform.position.y > this.transform.position.y) {
-                isDead = true;
-                animator.SetBool("isDead", true);
-                animator.SetTrigger("Hurt");
-                Debug.Log("Enemy is dead");
+                Die();
+                other.gameObject.GetComponentInParent<PlayerController>().KilledEnemy(points);
+            } else {
+                other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(damage);
             }
         }
+    }
+
+    void Die(){
+        isDead = true;
+        animator.SetBool("isDead", true);
+        animator.SetTrigger("Hurt");
+        Debug.Log("Enemy is dead");
     }
 }

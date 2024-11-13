@@ -175,24 +175,34 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Ladder")){
             isInLadder = true;
         }
+        /*
         if(other.CompareTag("Enemy")){
             // If the player is above the enemy, kill it
             if(this.transform.position.y > other.transform.position.y){
-                score += 1;
+                IncreaseScore(1);
                 // other.gameObject.SetActive(false);
                 Debug.Log("Enemy killed");
                 // Jump(); // FIXME: very buggy
             // Else the player gets hurt
             } else {
-                animator.SetTrigger("Hurt");
-                lives -= 1;
-                if(lives <= 0){
-                    transform.position = respawnPoint;
-                    lives = 3;
-                }
-                Debug.Log("Lives: " + lives);
+                TakeDamage(1);
             }
+        }*/
+    }
+
+    public void KilledEnemy(int points){
+        score += points;
+        Debug.Log("Enemy killed");
+    }
+
+    public void TakeDamage(int damage){
+        animator.SetTrigger("Hurt");
+        lives -= damage;
+        if(lives <= 0){
+            transform.position = respawnPoint;
+            lives = 3;
         }
+        Debug.Log("Lives: " + lives);
     }
 
     private void OnTriggerExit2D(Collider2D other) {
