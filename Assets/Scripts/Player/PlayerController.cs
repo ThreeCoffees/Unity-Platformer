@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Features")]
     [Range(1, 10)] [SerializeField] private int maxLives = 3;
-    [SerializeField] private Vector2 respawnPoint = new Vector2(0,0);
+    [SerializeField] private GameObject respawnPoint;
 
     private int _score = 0;
     public int score {
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             _lives = value;
             Debug.Log("Lives: " + _lives);
             if(_lives <= 0){
-                transform.position = respawnPoint;
+                transform.position = respawnPoint.transform.position;
                 lives = maxLives;
             }
         }
@@ -74,11 +74,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
 
+
     // On component creation
     private void Awake()
     {
         lives = maxLives;
-        transform.position = respawnPoint;
+        transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
