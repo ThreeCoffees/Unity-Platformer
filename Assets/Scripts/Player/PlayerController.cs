@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Key")){
             keysFound += 1;
             Debug.Log("Found key. Current key number: " + keysFound);
-            other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.3f,0.3f,0.3f,0.7f);
         }
         if(other.CompareTag("Heart")){
             lives += 1;
