@@ -25,7 +25,35 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangGravityFactor = 0.5f;
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
-    private int score = 0;
+    [Header("Features")]
+    [Range(1, 10)] [SerializeField] private int maxLives = 3;
+    [SerializeField] private GameObject respawnPoint;
+
+    private int _score = 0;
+    public int score {
+        get {
+            return _score;
+        }
+        set {
+            _score = value;
+            Debug.Log("Score: " + _score);
+        }
+    }
+
+    private int _lives;
+    public int lives {
+        get {
+            return _lives;
+        }
+        set {
+            _lives = value;
+            Debug.Log("Lives: " + _lives);
+            if(_lives <= 0){
+                transform.position = respawnPoint.transform.position;
+                lives = maxLives;
+            }
+        }
+    }
 
     public LayerMask groundLayer;
 
@@ -46,9 +74,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
 
+
     // On component creation
     private void Awake()
     {
+        lives = maxLives;
+        transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -122,6 +153,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isWalking", Mathf.Abs(moveInput.x) > 0.1);
         animator.SetBool("isFalling", rigidBody.velocity.y < 0.1);
 
+        // Flip sprite
         transform.localScale = isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
         // Debug 
         drawDebug();
@@ -147,6 +179,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = true;
@@ -156,11 +190,20 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Bonus")){
             score += 1;
             other.gameObject.SetActive(false);
-            Debug.Log(score);
         }
         if(other.CompareTag("Ladder")){
             isInLadder = true;
         }
+    }
+
+    public void KilledEnemy(int points){
+        Debug.Log("Enemy killed");
+        score += points;
+    }
+
+    public void TakeDamage(int damage){
+        animator.SetTrigger("Hurt");
+        lives -= damage;
     }
 
     private void OnTriggerExit2D(Collider2D other) {
