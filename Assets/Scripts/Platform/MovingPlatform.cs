@@ -7,7 +7,7 @@ public class MovingPlatform : MonoBehaviour
     [Range(0.1f, 30f)][SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool pingPong = false;
     [SerializeField] private bool paused = false;
-    [SerializeField] Transform[] path;
+    [SerializeField] GameObject[] path;
     private int index = 0;
     private int direction = 1;
     [SerializeField]private const float distanceThreshold = 0.05f;
@@ -23,11 +23,14 @@ public class MovingPlatform : MonoBehaviour
 
     void Start()
     {
-        transform.position = path[index].transform.position;
+        //transform.position = path[index].transform.position;
     }
 
     void FixedUpdate()
     {
+        if(path.Length == 0) {
+            return;
+        }
 		NextPoint();
 		MoveTowardsNextPoint();
     }
@@ -49,5 +52,13 @@ public class MovingPlatform : MonoBehaviour
                 index = 0;
             }
         }
+    }
+
+    public void SetPath(GameObject[] array){
+        path = array;
+    }
+
+    public void SetIndex(int newI){
+        index = newI;
     }
 }

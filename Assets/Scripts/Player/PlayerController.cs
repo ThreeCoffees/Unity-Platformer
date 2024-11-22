@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [Range(1, 10)] [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawnPoint;
 
+    public int keysFound = 0;
+    public int keysNumber = 3;
+
     private int _score = 0;
     public int score {
         get {
@@ -193,6 +196,16 @@ public class PlayerController : MonoBehaviour
         }
         if(other.CompareTag("Ladder")){
             isInLadder = true;
+        }
+        if(other.CompareTag("Key")){
+            keysFound += 1;
+            Debug.Log("Found key. Current key number: " + keysFound);
+            other.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.3f,0.3f,0.3f,0.7f);
+            other.enabled = false;
+        }
+        if(other.CompareTag("Heart")){
+            lives += 1;
+            other.gameObject.SetActive(false);
         }
     }
 
