@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 using System;
 
@@ -31,6 +32,11 @@ public class PlayerController : MonoBehaviour
 
     public int keysFound = 0;
     public int keysNumber = 3;
+    public LayerMask groundLayer;
+
+    [Header("Input")]
+    [SerializeField] private InputActionReference moveInput;
+    //[SerializeField] private InputActionReference jumpInput;
 
     private int _score = 0;
     public int score {
@@ -58,7 +64,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public LayerMask groundLayer;
 
     public Rigidbody2D rigidBody {get; private set;}
     public Animator animator {get; private set;}
@@ -75,7 +80,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumpCut;
     private Rigidbody2D platform;
 
-    private Vector2 moveInput;
+    private Vector2 moveDirection;
 
 
     // On component creation
@@ -101,11 +106,11 @@ public class PlayerController : MonoBehaviour
         lastJumpInputTime -= Time.deltaTime;
 
         // Input
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-        if(moveInput.x >= 0.01){
+        moveDirection = moveInput.action.ReadValue<Vector2>();
+
+        if(moveDirection.x >= 0.01){
             isFacingRight = true;
-        } else if(moveInput.x <= -0.01){
+        } else if(moveDirection.x <= -0.01){
             isFacingRight = false;
         }
 
@@ -132,7 +137,7 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (isInLadder && moveInput.y != 0){
+        if (isInLadder && moveDirection.y != 0){
             isClimbing = true;
             animator.SetBool("isClimbing", true);
         }
@@ -153,7 +158,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //animator.SetBool("isGrounded", lastOnGroundTime > 0);
-        animator.SetBool("isWalking", Mathf.Abs(moveInput.x) > 0.1);
+        animator.SetBool("isWalking", Mathf.Abs(moveDirection.x) > 0.1);
         animator.SetBool("isFalling", rigidBody.velocity.y < 0.1);
 
         // Flip sprite
@@ -239,7 +244,7 @@ public class PlayerController : MonoBehaviour
         Run();
         if(isClimbing == true){
             rigidBody.gravityScale = 0;
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveInput.y * moveSpeed);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveDirection.y * moveSpeed);
         } else {
             rigidBody.gravityScale = baseGravityFactor;
         }
@@ -249,7 +254,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Run() {
-        float targetSpeed = moveInput.x * moveSpeed;
+        float targetSpeed = moveDirection.x * moveSpeed;
         float speedDiff = targetSpeed - rigidBody.velocity.x;
 
         float acceleration;
@@ -268,7 +273,7 @@ public class PlayerController : MonoBehaviour
         // additional friction
         // skipped if on a moving platform
         if(platform == null){
-            if(Mathf.Abs(moveInput.x) == 0 && lastOnGroundTime > 0){
+            if(Mathf.Abs(moveDirection.x) == 0 && lastOnGroundTime > 0){
                 float frictionAmmount = Mathf.Min(Math.Abs(rigidBody.velocity.x), Mathf.Abs(groundFriction));
                 frictionAmmount *= -Mathf.Sign(rigidBody.velocity.x);
 
