@@ -158,13 +158,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext ctx){
-        if(ctx.performed){
+        if(ctx.started){
             lastJumpInputTime = jumpBuffer;
         }
     }
 
     public void OnJumpCut(InputAction.CallbackContext ctx){
-        if(ctx.performed){
+        if(ctx.started){
             if(canJumpCut()) {
                 isJumpCut = true;
             }
