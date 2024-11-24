@@ -34,10 +34,6 @@ public class PlayerController : MonoBehaviour
     public int keysNumber = 3;
     public LayerMask groundLayer;
 
-    [Header("Input")]
-    [SerializeField] private InputActionReference moveInput;
-    //[SerializeField] private InputActionReference jumpInput;
-
     private int _score = 0;
     public int score {
         get {
@@ -105,22 +101,6 @@ public class PlayerController : MonoBehaviour
         lastOnGroundTime -= Time.deltaTime;
         lastJumpInputTime -= Time.deltaTime;
 
-        // Input
-        moveDirection = moveInput.action.ReadValue<Vector2>();
-
-        if(moveDirection.x >= 0.01){
-            isFacingRight = true;
-        } else if(moveDirection.x <= -0.01){
-            isFacingRight = false;
-        }
-
-        if (Input.GetButtonDown("Jump")) {
-            onJumpDown();
-        }
-        if (Input.GetButtonUp("Jump")) {
-            onJumpUp();
-        }
-
         // Jump
         if (isJumping && rigidBody.velocity.y < 0) {
 			isJumping = false;
@@ -167,15 +147,27 @@ public class PlayerController : MonoBehaviour
         drawDebug();
     }
 
-    void onJumpDown(){
-        // starts the timer in which we check whether or not we can jump
-        lastJumpInputTime = jumpBuffer;
+    public void OnMovement(InputAction.CallbackContext ctx){
+        moveDirection = ctx.ReadValue<Vector2>();
+
+        if(moveDirection.x >= 0.01){
+            isFacingRight = true;
+        } else if(moveDirection.x <= -0.01){
+            isFacingRight = false;
+        }
     }
 
-    void onJumpUp(){
-        // releasing jump input stops the jump early
-        if(canJumpCut()) {
-            isJumpCut = true;
+    public void OnJump(InputAction.CallbackContext ctx){
+        if(ctx.performed){
+            lastJumpInputTime = jumpBuffer;
+        }
+    }
+
+    public void OnJumpCut(InputAction.CallbackContext ctx){
+        if(ctx.performed){
+            if(canJumpCut()) {
+                isJumpCut = true;
+            }
         }
     }
 
