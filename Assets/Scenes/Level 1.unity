@@ -2599,6 +2599,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+--- !u!1 &5292185752949079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6029681169690333632, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_PrefabInstance: {fileID: 5292185752949078}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5292185752949080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4679207047447933286, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_PrefabInstance: {fileID: 5292185752949078}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &90998193984230706 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4226013597575374583, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
@@ -2980,9 +2990,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 5292185752949079}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: pauseScreen
       value: 
       objectReference: {fileID: 943258390}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: highScoreText
+      value: 
+      objectReference: {fileID: 5292185752949080}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: gameOverScreen
       value: 

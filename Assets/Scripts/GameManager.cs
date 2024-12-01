@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class GameManager : MonoBehaviour
         [InspectorName("In Game")] IN_GAME, 
         [InspectorName("Paused")] PAUSED, 
         [InspectorName("Level Completed")] LEVEL_COMPLETED, 
+        [InspectorName("Game Over")] GAME_OVER, 
         [InspectorName("Settings")] SETTINGS, 
     };
 
@@ -28,11 +31,28 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject levelFinishedScreen;
+    [SerializeField] private GameObject highScoreText;
+    [SerializeField] private GameObject scoreText;
 
     private PlayerInput playerInput;
 
+    Scene currScene;
+    int highScore;
+
+    private int _score = 0;
+    public int score {
+        get {
+            return _score;
+        }
+        set {
+            _score = value;
+            Debug.Log("Score: " + _score);
+        }
+    }
+
     void SetGameState(GameState newGameState) {
         currGameState = newGameState;
+
     }
 
     void updateTimeScale(){
@@ -65,10 +85,19 @@ public class GameManager : MonoBehaviour
         pauseScreen.SetActive(false);
         gameOverScreen.SetActive(false);
         levelFinishedScreen.SetActive(true);
+
+        highScore = PlayerPrefs.GetInt(currScene.name + "_HighScore");
+        if(highScore < score){
+            highScore = score;
+            PlayerPrefs.SetInt(currScene.name + "_HighScore", highScore);
+        }
+
+        highScoreText.GetComponent<TMP_Text>().text = "High Score: " + highScore;
+        scoreText.GetComponent<TMP_Text>().text = "Score: " + score;
     }
 
     public void GameOver(){
-        SetGameState(GameState.LEVEL_COMPLETED);
+        SetGameState(GameState.GAME_OVER);
         playerInput.SwitchCurrentActionMap("UI");
         pauseScreen.SetActive(false);
         gameOverScreen.SetActive(true);
@@ -92,5 +121,11 @@ public class GameManager : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
         SetGameState(GameState.IN_GAME);
+
+        currScene = SceneManager.GetActiveScene();
+
+        if(!PlayerPrefs.HasKey(currScene.name + "_HighScore")){
+            PlayerPrefs.SetInt(currScene.name + "_HighScore", 0);
+        }
     }
 }

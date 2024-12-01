@@ -141,9 +141,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1756128103}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: pauseScreen
       value: 
       objectReference: {fileID: 2127123894}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: highScoreText
+      value: 
+      objectReference: {fileID: 2131817102}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: gameOverScreen
       value: 
@@ -300,9 +308,45 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 698701655}
+    - target: {fileID: 3594359112658569893, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594359112658569893, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594359112658569893, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594359112658569893, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -64
+      objectReference: {fileID: 0}
     - target: {fileID: 4226013597575374583, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
       propertyPath: m_Name
       value: LevelCompleteScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4226013597575374583, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543853079289548599, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543853079289548599, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543853079289548599, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543853079289548599, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -208
       objectReference: {fileID: 0}
     - target: {fileID: 8113669743935587100, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1517,6 +1561,11 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &1756128103 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6029681169690333632, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_PrefabInstance: {fileID: 114003469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1873325185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7091,6 +7140,11 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6320264138864601952, guid: 1dd2a8864047efa6f81678b6b2363526, type: 3}
   m_PrefabInstance: {fileID: 1223018298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2131817102 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4679207047447933286, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_PrefabInstance: {fileID: 114003469}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2138869219
 GameObject:

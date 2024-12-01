@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public int keysNumber = 3;
     public LayerMask groundLayer;
 
-    private int _score = 0;
+    /*private int _score = 0;
     public int score {
         get {
             return _score;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
             _score = value;
             Debug.Log("Score: " + _score);
         }
-    }
+    }*/
 
     private int _lives;
     public int lives {
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
             platform = other.gameObject.GetComponent<Rigidbody2D>();
         } 
         if(other.CompareTag("Bonus")){
-            score += 1;
+            GameManager.instance.score += 1;
             other.gameObject.SetActive(false);
         }
         if(other.CompareTag("Ladder")){
@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
 
     public void KilledEnemy(int points){
         Debug.Log("Enemy killed");
-        score += points;
+        GameManager.instance.score += points;
     }
 
     public void TakeDamage(int damage){
