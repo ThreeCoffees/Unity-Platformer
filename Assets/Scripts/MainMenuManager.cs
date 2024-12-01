@@ -15,4 +15,8 @@ public class MainMenuManager : MonoBehaviour
 #endif
         Application.Quit();
     }
+
+    public void RestartScene(){
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
 }
