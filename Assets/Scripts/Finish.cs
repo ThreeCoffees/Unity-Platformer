@@ -22,6 +22,7 @@ public class Finish : MonoBehaviour
             PlayerController pc = other.gameObject.GetComponentInParent<PlayerController>();
             if(pc.keysFound == pc.keysNumber){
                 Debug.Log("Game Over");
+                GameManager.instance.LevelCompleted();
             }
             else {
                 Debug.Log("Not enough keys");

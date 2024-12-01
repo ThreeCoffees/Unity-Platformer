@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
             if(_lives <= 0){
                 transform.position = respawnPoint.transform.position;
                 lives = maxLives;
+                GameManager.instance.GameOver();
             }
         }
     }

@@ -47,28 +47,40 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.PAUSED);
         pauseScreen.SetActive(true);
         playerInput.SwitchCurrentActionMap("UI");
-        //gameOverScreen.SetActive(false);
-        //levelFinishedScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelFinishedScreen.SetActive(false);
     }
 
     public void InGame(){
         SetGameState(GameState.IN_GAME);
         pauseScreen.SetActive(false);
         playerInput.SwitchCurrentActionMap("InGame");
-        //gameOverScreen.SetActive(false);
-        //levelFinishedScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelFinishedScreen.SetActive(false);
     }
 
     public void LevelCompleted(){
         SetGameState(GameState.LEVEL_COMPLETED);
+        playerInput.SwitchCurrentActionMap("UI");
+        pauseScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelFinishedScreen.SetActive(true);
     }
 
     public void GameOver(){
         SetGameState(GameState.LEVEL_COMPLETED);
+        playerInput.SwitchCurrentActionMap("UI");
+        pauseScreen.SetActive(false);
+        gameOverScreen.SetActive(true);
+        levelFinishedScreen.SetActive(false);
     }
 
     public void Settings(){
         SetGameState(GameState.SETTINGS);
+        playerInput.SwitchCurrentActionMap("UI");
+        pauseScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelFinishedScreen.SetActive(false);
     }
 
     void Awake(){
