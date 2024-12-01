@@ -50,6 +50,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void LoadNewScene(string sceneName){
+        SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public void ExitGame(){
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
+
+    public void RestartScene(){
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
+
     void SetGameState(GameState newGameState) {
         currGameState = newGameState;
 
