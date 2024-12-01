@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject levelFinishedScreen;
     [SerializeField] private GameObject highScoreText;
     [SerializeField] private GameObject scoreText;
+    [SerializeField] private GameObject graphicsQualityText;
 
     private PlayerInput playerInput;
 
@@ -142,5 +143,22 @@ public class GameManager : MonoBehaviour
         if(!PlayerPrefs.HasKey(currScene.name + "_HighScore")){
             PlayerPrefs.SetInt(currScene.name + "_HighScore", 0);
         }
+
+        graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+    }
+
+    public void SetVolume(float vol){
+        AudioListener.volume = vol;
+        Debug.Log(AudioListener.volume);
+    }
+
+    public void DecreaseGraphics(){
+        QualitySettings.DecreaseLevel();
+        graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+    }
+
+    public void IncreaseGraphics(){
+        QualitySettings.IncreaseLevel();
+        graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
     }
 }
