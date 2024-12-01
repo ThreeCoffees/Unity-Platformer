@@ -48,7 +48,9 @@ public class EnemyController : MonoBehaviour
 
         // Flip
         // isFacingRight is negated - enemy sprites look leftwards
-        transform.localScale = !isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
+        //transform.localScale = !isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
+        float newX = Mathf.Abs(transform.localScale.x) * (!isFacingRight ? 1 : -1); 
+        transform.localScale = new Vector3(newX, transform.localScale.y, transform.localScale.z);
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Eagle-Dead")) {
             Destroy(gameObject);
