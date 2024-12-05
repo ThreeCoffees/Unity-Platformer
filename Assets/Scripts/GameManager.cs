@@ -56,6 +56,56 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] public Image[] livesIcons;
+    
+    enum LifeUIPolicy {
+        GRAY_OUT, DISABLE
+    }
+    [SerializeField] private LifeUIPolicy lifeUIPolicy;
+
+
+    public static readonly Color disabledLifeColor = new Color(0.3f,0.3f,0.3f,0.7f);
+
+    private int _lives = 3;
+    public int lives {
+        get {
+            return _lives;
+        }
+        set {
+            _lives = value;
+            Debug.Log("Lives: " + _lives);
+            
+            if(_lives < 0){
+                _lives = 0;
+            }
+
+            for(int i = 0; i < _lives; i++){
+                if (lifeUIPolicy == LifeUIPolicy.GRAY_OUT) {
+                    livesIcons[i].color = Color.white;
+                } else if (lifeUIPolicy == LifeUIPolicy.DISABLE) {
+                    livesIcons[i].enabled = true;
+                }    
+            }
+            for(int i = _lives; i < livesIcons.Length; i++){
+                if (lifeUIPolicy == LifeUIPolicy.GRAY_OUT) {
+                    livesIcons[i].color = disabledLifeColor;
+                } else if (lifeUIPolicy == LifeUIPolicy.DISABLE) {
+                    livesIcons[i].enabled = false;
+                }
+            }
+
+            if(_lives <= 0){
+                // FIXME: respawn is implemented in PlayerController
+                
+                // transform.position = respawnPoint.transform.position; 
+                // lives = maxLives;
+                
+                GameOver();
+            }
+        }
+    }
+
+
     private PlayerInput playerInput;
 
     Scene currScene;

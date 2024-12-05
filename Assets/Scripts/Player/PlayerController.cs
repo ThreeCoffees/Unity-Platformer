@@ -45,22 +45,6 @@ public class PlayerController : MonoBehaviour
         }
     }*/
 
-    private int _lives;
-    public int lives {
-        get {
-            return _lives;
-        }
-        set {
-            _lives = value;
-            Debug.Log("Lives: " + _lives);
-            if(_lives <= 0){
-                transform.position = respawnPoint.transform.position;
-                lives = maxLives;
-                GameManager.instance.GameOver();
-            }
-        }
-    }
-
 
     public Rigidbody2D rigidBody {get; private set;}
     public Animator animator {get; private set;}
@@ -83,7 +67,7 @@ public class PlayerController : MonoBehaviour
     // On component creation
     private void Awake()
     {
-        lives = maxLives;
+        // GameManager.instance.lives = maxLives; // FIXME: GameManager is hardcoded to support 3 lives max.
         transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -202,7 +186,7 @@ public class PlayerController : MonoBehaviour
             other.enabled = false;
         }
         if(other.CompareTag("Heart")){
-            lives += 1;
+            GameManager.instance.lives += 1;
             other.gameObject.SetActive(false);
         }
     }
@@ -214,7 +198,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage){
         animator.SetTrigger("Hurt");
-        lives -= damage;
+        GameManager.instance.lives -= damage;
     }
 
     private void OnTriggerExit2D(Collider2D other) {
