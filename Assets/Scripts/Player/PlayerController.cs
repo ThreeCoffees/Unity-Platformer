@@ -194,8 +194,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void KilledEnemy(int points){
-        Debug.Log("Enemy killed");
         GameManager.instance.score += points;
+        GameManager.instance.enemiesKilled += 1;
     }
 
     public void TakeDamage(int damage){

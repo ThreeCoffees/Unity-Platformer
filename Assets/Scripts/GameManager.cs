@@ -109,10 +109,24 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TMP_Text timerText;
 
+    [SerializeField] private TMP_Text killedEnemiesText;
+
     private PlayerInput playerInput;
 
     Scene currScene;
     int highScore;
+
+    private int _enemiesKilled = 0;
+    public int enemiesKilled {
+        get {
+            return _enemiesKilled;
+        }
+        set {
+            Debug.Log("Enemy killed");
+            _enemiesKilled = value;
+            killedEnemiesText.text = "" + _enemiesKilled;
+        }
+    }
 
     private int _score = 0;
     public int score {
@@ -233,7 +247,7 @@ public class GameManager : MonoBehaviour
         graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
     }
 
-    void Update(){
+    protected virtual void Update(){
         Debug.Log(currGameState);
         if(currGameState == GameState.IN_GAME){
             timer += Time.deltaTime;
