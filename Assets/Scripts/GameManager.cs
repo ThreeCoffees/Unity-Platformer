@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -35,6 +37,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject scoreText;
     [SerializeField] private GameObject graphicsQualityText;
 
+    [SerializeField] public Canvas inGameCanvas;
+    [SerializeField] public TMP_Text inGameScoreText;
+
+    [SerializeField] public Image[] keyIcons;
+
+    private int _keysFound = 0;
+    public static readonly Color disabledKeyColor = new Color(0.3f,0.3f,0.3f,0.7f);
+
+    public void keyFound(Color keyColor){
+        keyIcons[_keysFound].color = keyColor;
+        _keysFound++;
+    }
+
+    public int keysFound {
+        get {
+            return _keysFound;
+        }
+    }
+
     private PlayerInput playerInput;
 
     Scene currScene;
@@ -47,7 +68,9 @@ public class GameManager : MonoBehaviour
         }
         set {
             _score = value;
+
             Debug.Log("Score: " + _score);
+            inGameScoreText.GetComponent<TMP_Text>().text = "" + _score;
         }
     }
 
@@ -68,7 +91,11 @@ public class GameManager : MonoBehaviour
 
     void SetGameState(GameState newGameState) {
         currGameState = newGameState;
-
+        if (currGameState == GameState.IN_GAME) {
+            inGameCanvas.enabled = true;
+        } else {
+            inGameCanvas.enabled = false;
+        }
     }
 
     void updateTimeScale(){
@@ -135,6 +162,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Duplicate Game Manager", gameObject);
         }
 
+        scoreText.GetComponent<TMP_Text>().text = "" + score;
+
         playerInput = GetComponent<PlayerInput>();
         SetGameState(GameState.IN_GAME);
 
@@ -142,6 +171,10 @@ public class GameManager : MonoBehaviour
 
         if(!PlayerPrefs.HasKey(currScene.name + "_HighScore")){
             PlayerPrefs.SetInt(currScene.name + "_HighScore", 0);
+        }
+
+        foreach (Image keyIcon in keyIcons){
+            keyIcon.color = Color.gray;
         }
 
         graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];

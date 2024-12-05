@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
     [Range(1, 10)] [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawnPoint;
 
-    public int keysFound = 0;
-    public int keysNumber = 3;
+    // public int keysFound = 0;
+    // public int keysNumber = 3;
     public LayerMask groundLayer;
 
     /*private int _score = 0;
@@ -196,9 +196,9 @@ public class PlayerController : MonoBehaviour
             isInLadder = true;
         }
         if(other.CompareTag("Key")){
-            keysFound += 1;
-            Debug.Log("Found key. Current key number: " + keysFound);
-            other.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.3f,0.3f,0.3f,0.7f);
+            GameManager.instance.keyFound(other.gameObject.GetComponent<SpriteRenderer>().color);
+            // Debug.Log("Found key. Current key number: " + keysFound);
+            other.gameObject.GetComponent<SpriteRenderer>().color = GameManager.disabledKeyColor;
             other.enabled = false;
         }
         if(other.CompareTag("Heart")){
