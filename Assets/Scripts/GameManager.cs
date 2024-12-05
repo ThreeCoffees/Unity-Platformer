@@ -105,6 +105,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float timer = 0;
+
+    [SerializeField] private TMP_Text timerText;
 
     private PlayerInput playerInput;
 
@@ -228,6 +231,16 @@ public class GameManager : MonoBehaviour
         }
 
         graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+    }
+
+    void Update(){
+        Debug.Log(currGameState);
+        if(currGameState == GameState.IN_GAME){
+            timer += Time.deltaTime;
+            Debug.Log(timer);
+            timerText.text = string.Format("{0:00}:{1:00}}", 
+                Mathf.Floor(timer / 60), Mathf.Floor(timer % 60));
+        }
     }
 
     public void SetVolume(float vol){
