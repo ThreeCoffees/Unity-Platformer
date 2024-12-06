@@ -27,6 +27,7 @@ public class Finish : MonoBehaviour
             else {
                 Debug.Log("Not enough keys");
             }
+            // NOTE: audio playback is in PlayerController.cs
         }
     }
 }

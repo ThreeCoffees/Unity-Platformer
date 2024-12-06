@@ -29,6 +29,14 @@ public class PlayerController : MonoBehaviour
     [Header("Features")]
     [Range(1, 10)] [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawnPoint;
+    
+    [SerializeField] private AudioClip bonusSound;
+    [SerializeField] private AudioClip hurtSound;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip keySound;
+    [SerializeField] private AudioClip killSound;
+    [SerializeField] private AudioClip finishSound;
+    [SerializeField] private AudioClip lifeSound;
 
     // public int keysFound = 0;
     // public int keysNumber = 3;
@@ -63,6 +71,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveDirection;
 
+    private AudioSource audioSource;
+
+
 
     // On component creation
     private void Awake()
@@ -71,6 +82,7 @@ public class PlayerController : MonoBehaviour
         transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -175,6 +187,7 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Bonus")){
             GameManager.instance.score += 1;
             other.gameObject.SetActive(false);
+            audioSource.PlayOneShot(bonusSound, AudioListener.volume);
         }
         if(other.CompareTag("Ladder")){
             isInLadder = true;
@@ -184,12 +197,18 @@ public class PlayerController : MonoBehaviour
             // Debug.Log("Found key. Current key number: " + keysFound);
             other.gameObject.GetComponent<SpriteRenderer>().color = GameManager.disabledKeyColor;
             other.enabled = false;
+            audioSource.PlayOneShot(keySound, AudioListener.volume);
         }
         if(other.CompareTag("Heart")){
             if (GameManager.instance.lives < maxLives){
                 GameManager.instance.lives += 1;
                 other.gameObject.SetActive(false);
+                audioSource.PlayOneShot(lifeSound, AudioListener.volume);
             }
+        }
+        if (other.CompareTag("Finish")){
+            // NOTE: The rest of the finish interaction is in Finish.cs
+            audioSource.PlayOneShot(finishSound, AudioListener.volume);
         }
     }
 
@@ -201,6 +220,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage){
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
+        audioSource.PlayOneShot(hurtSound, AudioListener.volume);
     }
 
     private void OnTriggerExit2D(Collider2D other) {
