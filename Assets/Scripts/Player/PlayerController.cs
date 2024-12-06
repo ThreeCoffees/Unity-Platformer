@@ -208,7 +208,9 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Finish")){
             // NOTE: The rest of the finish interaction is in Finish.cs
-            audioSource.PlayOneShot(finishSound, AudioListener.volume);
+            if (GameManager.instance.keysFound == GameManager.instance.keyIcons.Length){
+                audioSource.PlayOneShot(finishSound, AudioListener.volume);
+            }
         }
     }
 
