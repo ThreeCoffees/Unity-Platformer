@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [Range(1f, 4f)] [SerializeField] private float fallGravityFactor = 1.5f;
     [Range(0f, 4f)] [SerializeField] private float hangGravityFactor = 0.5f;
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
+
+    [Range(0f, 1000f)] [SerializeField] private float grappleMaxRange = 500f;
 
     [Header("Features")]
     [Range(1, 10)] [SerializeField] private int maxLives = 3;
@@ -71,6 +74,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveDirection;
 
+    private SpringJoint2D grapplingSpring;
+
     private AudioSource audioSource;
 
 
@@ -81,6 +86,7 @@ public class PlayerController : MonoBehaviour
         // GameManager.instance.lives = maxLives; // FIXME: GameManager is hardcoded to support 3 lives max.
         transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
+        grapplingSpring = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -89,6 +95,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody.gravityScale = baseGravityFactor;
+        grapplingSpring.enabled = false;
     }
 
     // Update is called once per frame
@@ -167,6 +174,55 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private enum GrappleState {
+        None,
+        Launched,
+        Pulled
+    } 
+    GrappleState grappleState = GrappleState.None;
+
+    public void onGrappleLaunch(InputAction.CallbackContext ctx){
+        if(ctx.started && grappleState == GrappleState.None){
+            // Project a ray through mouse position up to a nearby collider
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Debug.Log("Mouse position: " + mousePosition);
+            Vector2 playerPosition = transform.position;
+            Vector2 direction = (mousePosition - playerPosition)/Vector2.Distance(mousePosition, playerPosition);
+            
+            // If the ray hits a collider, create a spring joint between the player and the hit point
+            RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
+            if(hit.collider != null){
+                grapplingSpring.connectedAnchor = hit.point;
+                grapplingSpring.distance = Vector2.Distance(playerPosition, hit.point);
+                grapplingSpring.enabled = true;
+                grappleState = GrappleState.Launched;
+            }
+
+            Debug.Log("Grapple:"+grappleState.ToString() + " Connected to:"+hit.collider);
+        }
+    }
+
+    public void onGrapplePull(InputAction.CallbackContext ctx){
+        if(ctx.started && grappleState == GrappleState.Launched){
+            // Pull the player towards the grapple point
+            grapplingSpring.enabled = true;
+
+            grappleState = GrappleState.Pulled;
+            Debug.Log(grappleState.ToString());
+        }
+    }
+
+    public void onGrappleRelease(InputAction.CallbackContext ctx){
+        if(ctx.started && grappleState != GrappleState.None){
+            // Dispose of the spring joint
+            grapplingSpring.enabled = false;
+
+            grappleState = GrappleState.None;
+            Debug.Log(grappleState.ToString());
+        }
+    }
+
 
     private void OnTriggerStay2D(Collider2D other) {
         // checks for collision and if it's happening starts the timer in which we can still jump after it stops.
@@ -318,6 +374,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void drawDebug() {
-
+        
     }
 }
