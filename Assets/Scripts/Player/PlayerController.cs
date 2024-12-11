@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     private bool isFacingRight = true;
     private bool isInLadder = false;
     private bool isClimbing = false;
+    private Vector2 windForce = Vector2.zero;
 
     private bool isJumping;
     private bool isJumpCut;
@@ -197,6 +198,9 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Ladder")){
             isInLadder = true;
         }
+        if(other.CompareTag("WindZone")){
+            windForce = other.gameObject.GetComponent<Wind>().windForce;
+        }
         if(other.CompareTag("Key")){
             keysFound += 1;
             Debug.Log("Found key. Current key number: " + keysFound);
@@ -233,6 +237,9 @@ public class PlayerController : MonoBehaviour
             isClimbing = false;
             animator.SetBool("isClimbing", false);
         }
+        if(other.CompareTag("WindZone")){
+            windForce = Vector2.zero;
+        }
     }
 
     void FixedUpdate(){
@@ -246,6 +253,7 @@ public class PlayerController : MonoBehaviour
         if(platform != null){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
         }
+        rigidBody.AddForce(windForce, ForceMode2D.Force);
     }
 
     void Run() {
