@@ -251,22 +251,11 @@
                 {
                     "name": "",
                     "id": "e8137922-3774-432e-aacb-482b01436f8e",
-                    "path": "<Mouse>/{PrimaryAction}",
+                    "path": "<Mouse>/{SecondaryAction}",
                     "interactions": "Hold(duration=1.401298E-45,pressPoint=1.401298E-45)",
                     "processors": "",
                     "groups": "",
                     "action": "GrapplePull",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "90c9e400-7092-402b-9480-30c44e29fda5",
-                    "path": "<Mouse>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GrappleRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

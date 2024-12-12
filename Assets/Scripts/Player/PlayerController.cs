@@ -183,6 +183,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GrappleState grappleState = GrappleState.None;
 
     [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
+    [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
         if(grappleState != GrappleState.None){ return; }
@@ -217,28 +218,33 @@ public class PlayerController : MonoBehaviour
     public void onGrapplePull(InputAction.CallbackContext ctx){
         if (grappleState != GrappleState.Launched){ return; }
 
-        if(ctx.started){
+        if(ctx.performed){
             Debug.Log("Pulling grapple");
             // Pull the player towards the grapple point
+            grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
             grapplingSpring.enabled = true;
 
             grappleState = GrappleState.Pulled;
-            Debug.Log(grappleState.ToString());
+            Debug.Log(grappleState);
+        }
+        if (ctx.canceled){
+            releaseGrapple();
         }
     }
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
         if (grappleState == GrappleState.None){ return; }
-        Debug.Log("Releasing grapple");
 
         if(ctx.started){
-            Debug.Log("Releasing grapple");
-            // Dispose of the spring joint
-            grapplingSpring.enabled = false;
-
-            grappleState = GrappleState.None;
-            Debug.Log(grappleState.ToString());
+            releaseGrapple();
         }
+    }
+
+    public void releaseGrapple(){
+        Debug.Log("Releasing grapple");
+        grapplingSpring.enabled = false;
+        grappleState = GrappleState.None;
+        Debug.Log(grappleState);
     }
 
 
