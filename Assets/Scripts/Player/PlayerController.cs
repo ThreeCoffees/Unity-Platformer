@@ -202,9 +202,10 @@ public class PlayerController : MonoBehaviour
             // If the ray hits a collider, create a spring joint between the player and the hit point
             RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
             if(hit.collider != null){
+                grapplingSpring.enabled = true;
+                grapplingSpring.connectedBody = hit.collider.attachedRigidbody;
                 grapplingSpring.connectedAnchor = hit.point;
                 grapplingSpring.distance = Vector2.Distance(playerPosition, hit.point);
-                grapplingSpring.enabled = true;
                 grappleState = GrappleState.Launched;
             }
 

@@ -222,6 +222,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  grappleState: 0
   grappleSlowMotionFactor: 0.2
 --- !u!212 &1242634622337113283
 SpriteRenderer:
@@ -539,10 +540,10 @@ SpringJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.000000014901161, y: 2}
-  m_AutoConfigureDistance: 1
+  m_ConnectedAnchor: {x: 0, y: 2}
+  m_AutoConfigureDistance: 0
   m_Distance: 0.005
   m_DampingRatio: 0
   m_Frequency: 1
