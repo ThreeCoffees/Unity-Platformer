@@ -27,12 +27,25 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangGravityFactor = 0.5f;
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
+    [Header("Grapple")]
     [Range(0f, 1000f)] [SerializeField] private float grappleMaxRange = 500f;
+
+        private enum GrappleState {
+        Released,
+        Launched,
+        Pulled
+    } 
+    // NOTE: grappleState is not intended to be modified in the inspector
+    [SerializeField] GrappleState grappleState = GrappleState.Released;
+    [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
+    [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
+
 
     [Header("Features")]
     [Range(1, 10)] [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawnPoint;
     
+    [Header("Audio")]
     [SerializeField] private AudioClip bonusSound;
     [SerializeField] private AudioClip hurtSound;
     [SerializeField] private AudioClip jumpSound;
@@ -40,6 +53,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip killSound;
     [SerializeField] private AudioClip finishSound;
     [SerializeField] private AudioClip lifeSound;
+    [SerializeField] private AudioClip grappleLaunchSound; // TODO
+    [SerializeField] private AudioClip grapplePullSound; // TODO
 
     // public int keysFound = 0;
     // public int keysNumber = 3;
@@ -174,16 +189,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    private enum GrappleState {
-        Released,
-        Launched,
-        Pulled
-    } 
-    [SerializeField] GrappleState grappleState = GrappleState.Released;
-
-    [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
-    [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
         if(grappleState != GrappleState.Released){ return; }
