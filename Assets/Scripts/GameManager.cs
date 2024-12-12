@@ -244,16 +244,15 @@ public class GameManager : MonoBehaviour
             keyIcon.color = Color.gray;
         }
 
-        graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+        // graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
     }
 
     protected virtual void Update(){
-        Debug.Log(currGameState);
         if(currGameState == GameState.IN_GAME){
             timer += Time.deltaTime;
-            Debug.Log(timer);
-            timerText.text = string.Format("{0:00}:{1:00}}", 
-                Mathf.Floor(timer / 60), Mathf.Floor(timer % 60));
+            string text = string.Format("{0:00}:{1:00}.{2:00}", 
+                Mathf.Floor(timer / 60), Mathf.Floor(timer % 60), Mathf.Floor((timer * 100) % 100));
+            timerText.text = text;
         }
     }
 

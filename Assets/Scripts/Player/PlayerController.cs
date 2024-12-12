@@ -184,6 +184,7 @@ public class PlayerController : MonoBehaviour
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
         if(ctx.started && grappleState == GrappleState.None){
+            Debug.Log("Launching grapple");
             // Project a ray through mouse position up to a nearby collider
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Debug.Log("Mouse position: " + mousePosition);
@@ -205,6 +206,7 @@ public class PlayerController : MonoBehaviour
 
     public void onGrapplePull(InputAction.CallbackContext ctx){
         if(ctx.started && grappleState == GrappleState.Launched){
+            Debug.Log("Pulling grapple");
             // Pull the player towards the grapple point
             grapplingSpring.enabled = true;
 
@@ -215,6 +217,7 @@ public class PlayerController : MonoBehaviour
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
         if(ctx.started && grappleState != GrappleState.None){
+            Debug.Log("Releasing grapple");
             // Dispose of the spring joint
             grapplingSpring.enabled = false;
 
