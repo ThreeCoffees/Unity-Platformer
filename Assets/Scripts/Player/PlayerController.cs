@@ -182,8 +182,16 @@ public class PlayerController : MonoBehaviour
     } 
     GrappleState grappleState = GrappleState.None;
 
+    [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
+
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
-        if(ctx.started && grappleState == GrappleState.None){
+        if(grappleState != GrappleState.None){ return; }
+
+        if(ctx.started){
+            Debug.Log("Preparing grapple");
+            Time.timeScale = grappleSlowMotionFactor;
+        }
+        if(ctx.canceled){
             Debug.Log("Launching grapple");
             // Project a ray through mouse position up to a nearby collider
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -201,6 +209,7 @@ public class PlayerController : MonoBehaviour
             }
 
             Debug.Log("Grapple:"+grappleState.ToString() + " Connected to:"+hit.collider);
+            Time.timeScale = 1.0f;
         }
     }
 
