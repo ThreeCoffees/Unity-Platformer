@@ -176,17 +176,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private enum GrappleState {
-        None,
+        Released,
         Launched,
         Pulled
     } 
-    [SerializeField] GrappleState grappleState = GrappleState.None;
+    [SerializeField] GrappleState grappleState = GrappleState.Released;
 
     [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
     [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
-        if(grappleState != GrappleState.None){ return; }
+        if(grappleState != GrappleState.Released){ return; }
 
         if(ctx.started){
             Debug.Log("Preparing grapple");
@@ -196,7 +196,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Launching grapple");
             // Project a ray through mouse position up to a nearby collider
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Debug.Log("Mouse position: " + mousePosition);
             Vector2 playerPosition = transform.position;
             Vector2 direction = (mousePosition - playerPosition).normalized;
             
@@ -210,22 +209,22 @@ public class PlayerController : MonoBehaviour
                 grappleState = GrappleState.Launched;
             }
 
-            Debug.Log("Grapple:"+grappleState.ToString() + " Connected to:"+hit.collider);
+            Debug.Log("Grapple:"+grappleState + " Connected to:"+hit.collider);
             Time.timeScale = 1.0f;
         }
     }
 
     public void onGrapplePull(InputAction.CallbackContext ctx){
-        if (grappleState != GrappleState.Launched){ return; }
+        // if (grappleState != GrappleState.Launched){ return; }
+        if (grapplingSpring.enabled == false){ return; }
 
-        if(ctx.performed){
+        if(ctx.performed){ // FIXME: gets called only once instead of every frame
             Debug.Log("Pulling grapple");
             // Pull the player towards the grapple point
             grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
             grapplingSpring.enabled = true;
 
             grappleState = GrappleState.Pulled;
-            Debug.Log(grappleState);
         }
         if (ctx.canceled){
             releaseGrapple();
@@ -233,7 +232,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
-        if (grappleState == GrappleState.None){ return; }
+        // if (grappleState == GrappleState.Released){ return; }
 
         if(ctx.started){
             releaseGrapple();
@@ -243,8 +242,7 @@ public class PlayerController : MonoBehaviour
     public void releaseGrapple(){
         Debug.Log("Releasing grapple");
         grapplingSpring.enabled = false;
-        grappleState = GrappleState.None;
-        Debug.Log(grappleState);
+        grappleState = GrappleState.Released;
     }
 
 
