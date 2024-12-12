@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
         Launched,
         Pulled
     } 
-    GrappleState grappleState = GrappleState.None;
+    [SerializeField] GrappleState grappleState = GrappleState.None;
 
     [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
 
@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Debug.Log("Mouse position: " + mousePosition);
             Vector2 playerPosition = transform.position;
-            Vector2 direction = (mousePosition - playerPosition)/Vector2.Distance(mousePosition, playerPosition);
+            Vector2 direction = (mousePosition - playerPosition).normalized;
             
             // If the ray hits a collider, create a spring joint between the player and the hit point
             RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
@@ -214,7 +214,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrapplePull(InputAction.CallbackContext ctx){
-        if(ctx.started && grappleState == GrappleState.Launched){
+        if (grappleState != GrappleState.Launched){ return; }
+
+        if(ctx.started){
             Debug.Log("Pulling grapple");
             // Pull the player towards the grapple point
             grapplingSpring.enabled = true;
@@ -225,7 +227,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
-        if(ctx.started && grappleState != GrappleState.None){
+        if (grappleState == GrappleState.None){ return; }
+        Debug.Log("Releasing grapple");
+
+        if(ctx.started){
             Debug.Log("Releasing grapple");
             // Dispose of the spring joint
             grapplingSpring.enabled = false;
@@ -386,6 +391,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void drawDebug() {
-        
+        if (grapplingSpring.enabled){
+            Debug.DrawLine(transform.position, grapplingSpring.connectedAnchor, Color.red);
+        }
     }
 }

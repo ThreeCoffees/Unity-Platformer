@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 8496199378755052224}
   - component: {fileID: 2433806578022069764}
   - component: {fileID: 5136959420378717133}
+  - component: {fileID: 2353367611571843777}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -208,6 +209,7 @@ MonoBehaviour:
   fallGravityFactor: 1.5
   hangGravityFactor: 0.85
   hangThreshold: 1.5
+  grappleMaxRange: 500
   maxLives: 3
   respawnPoint: {fileID: 0}
   bonusSound: {fileID: 8300000, guid: 2e1c0edfc97324f3cbdc4ed5f343753b, type: 3}
@@ -220,6 +222,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  grappleSlowMotionFactor: 0.2
 --- !u!212 &1242634622337113283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -522,6 +525,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!231 &2353367611571843777
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016332960304088242}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0.000000014901161, y: 2}
+  m_AutoConfigureDistance: 1
+  m_Distance: 0.005
+  m_DampingRatio: 0
+  m_Frequency: 1
 --- !u!1 &5620083238079898069
 GameObject:
   m_ObjectHideFlags: 0

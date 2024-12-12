@@ -128,27 +128,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3016332960304088242, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
   m_PrefabInstance: {fileID: 1865985017}
   m_PrefabAsset: {fileID: 0}
---- !u!231 &75889574
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75889566}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.000000014901161, y: 2}
-  m_AutoConfigureDistance: 1
-  m_Distance: 0.005
-  m_DampingRatio: 0
-  m_Frequency: 1
 --- !u!114 &87089688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8825872153865290866, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
@@ -2536,10 +2515,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3016332960304088242, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 75889574}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
 --- !u!1001 &2018877800
 PrefabInstance:
