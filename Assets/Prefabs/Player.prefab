@@ -210,6 +210,9 @@ MonoBehaviour:
   hangGravityFactor: 0.85
   hangThreshold: 1.5
   grappleMaxRange: 500
+  grappleState: 0
+  grappleSlowMotionFactor: 0.2
+  grapplePullForce: 10
   maxLives: 3
   respawnPoint: {fileID: 0}
   bonusSound: {fileID: 8300000, guid: 2e1c0edfc97324f3cbdc4ed5f343753b, type: 3}
@@ -219,11 +222,11 @@ MonoBehaviour:
   killSound: {fileID: 8300000, guid: 893f218bd3d93406c867dec435b15af8, type: 3}
   finishSound: {fileID: 8300000, guid: e7307cc4d04404304a7c695958a2648d, type: 3}
   lifeSound: {fileID: 8300000, guid: 6a1c983933aa94661a32c78db2888ae5, type: 3}
+  grappleLaunchSound: {fileID: 0}
+  grapplePullSound: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  grappleState: 0
-  grappleSlowMotionFactor: 0.2
 --- !u!212 &1242634622337113283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -401,7 +404,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4251518513318113673}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnPause
+        m_MethodName: onGrappleLaunch
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -411,20 +414,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 79e2a410-d9f1-40a1-8339-46e3617cfa63
-    m_ActionName: PlayerMovement/PauseGame[/Keyboard/escape]
+    m_ActionId: 8007405e-8028-4bfb-b944-f11c54bebd3a
+    m_ActionName: PlayerMovement/GrappleLaunch[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: edbe3cf1-21d3-498e-8ec0-6707fef7e816
-    m_ActionName: UI/Exit[/Keyboard/escape]
+      m_Calls:
+      - m_Target: {fileID: 4251518513318113673}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onGrapplePull
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e4f05a6-704f-4f4d-9d3f-fa3a80636238
+    m_ActionName: PlayerMovement/GrapplePull[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 73ed03cf-7ea7-45eb-9fcf-5806c0ecb121
-    m_ActionName: UI/SwitchFocus[/Keyboard/w,/Keyboard/s,/Keyboard/upArrow,/Keyboard/downArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e1f3c9c3-3967-4b46-a764-718f5c839799
-    m_ActionName: UI/Choose[/Keyboard/enter,/Keyboard/space]
+      m_Calls:
+      - m_Target: {fileID: 4251518513318113673}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onGrappleRelease
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 03b33a13-605b-4839-b6f4-29d2e462d20d
+    m_ActionName: PlayerMovement/GrappleRelease[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement

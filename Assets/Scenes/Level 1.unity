@@ -128,17 +128,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3016332960304088242, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
   m_PrefabInstance: {fileID: 1865985017}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &75889580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4251518513318113673, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-  m_PrefabInstance: {fileID: 1865985017}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75889566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d91c63d9e5dc6d41898dfb5ebe28d4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &87089688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8825872153865290866, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
@@ -2352,124 +2341,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: 8007405e-8028-4bfb-b944-f11c54bebd3a
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
-      value: 9e4f05a6-704f-4f4d-9d3f-fa3a80636238
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
-      value: 03b33a13-605b-4839-b6f4-29d2e462d20d
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: PlayerMovement/GrappleLaunch[/Mouse/leftButton]
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
-      value: PlayerMovement/GrapplePull[/Mouse/leftButton]
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
-      value: PlayerMovement/GrappleRelease[/Mouse/leftButton]
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 75889580}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 75889580}
     - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: onGrappleLaunch
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: onGrapplePull
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: onGrappleRelease
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3016332960304088242, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
       propertyPath: m_Name
