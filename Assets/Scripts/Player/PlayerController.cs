@@ -204,13 +204,23 @@ public class PlayerController : MonoBehaviour
             Vector2 playerPosition = transform.position;
             Vector2 direction = (mousePosition - playerPosition).normalized;
             
-            // If the ray hits a collider, create a spring joint between the player and the hit point
+            // If the ray hits a collider, create a spring joint between the player and the hit rigidbody
             RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
             if(hit.collider != null){
-                grapplingSpring.enabled = true;
-                grapplingSpring.connectedBody = hit.collider.attachedRigidbody;
-                grapplingSpring.connectedAnchor = hit.point;
+                // Debug.Log("Grapple launched");
+                Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
+                if(hitRigidbody == null){
+                    Debug.LogWarning("Grapple hit a non-rigidbody collider");
+                    return;
+                }
+                
+                grapplingSpring.connectedBody = hitRigidbody;
                 grapplingSpring.distance = Vector2.Distance(playerPosition, hit.point);
+                grapplingSpring.connectedAnchor = hitRigidbody.transform.InverseTransformPoint(hit.point);
+
+                Debug.Log(grapplingSpring.attachedRigidbody);
+                
+                grapplingSpring.enabled = true;
                 grappleState = GrappleState.Launched;
             }
 
@@ -412,7 +422,7 @@ public class PlayerController : MonoBehaviour
 
     void drawDebug() {
         if (grapplingSpring.enabled){
-            Debug.DrawLine(transform.position, grapplingSpring.connectedAnchor, Color.red);
+            Debug.DrawLine(transform.position,  grapplingSpring.connectedBody.transform.TransformPoint(grapplingSpring.connectedAnchor), Color.red);
         }
     }
 }
