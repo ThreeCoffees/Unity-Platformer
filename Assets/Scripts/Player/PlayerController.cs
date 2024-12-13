@@ -194,11 +194,11 @@ public class PlayerController : MonoBehaviour
         if(grappleState != GrappleState.Released){ return; }
 
         if(ctx.started){
-            Debug.Log("Preparing grapple");
+            // Debug.Log("Preparing grapple");
             Time.timeScale = grappleSlowMotionFactor;
         }
         if(ctx.canceled){
-            Debug.Log("Launching grapple");
+            // Debug.Log("Launching grapple");
             // Project a ray through mouse position up to a nearby collider
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 playerPosition = transform.position;
@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
                 grappleState = GrappleState.Launched;
             }
 
-            Debug.Log("Grapple:"+grappleState + " Connected to:"+hit.collider);
+            // Debug.Log("Grapple:"+grappleState + " Connected to:"+hit.collider);
             Time.timeScale = 1.0f;
         }
     }
@@ -224,14 +224,19 @@ public class PlayerController : MonoBehaviour
         if (grapplingSpring.enabled == false){ return; }
 
         if(ctx.performed){ // FIXME: gets called only once instead of every frame
-            Debug.Log("Pulling grapple");
-            // Pull the player towards the grapple point
-            grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
+            // Debug.Log("Pulling grapple");
             grapplingSpring.enabled = true;
-
             grappleState = GrappleState.Pulled;
         }
         if (ctx.canceled){
+            releaseGrapple();
+        }
+    }
+
+    public void pullGrapple(){ 
+        grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
+        if (grapplingSpring.distance <= 0){
+            // Debug.Log("Grapple pulled fully");
             releaseGrapple();
         }
     }
@@ -332,8 +337,13 @@ public class PlayerController : MonoBehaviour
         } else {
             rigidBody.gravityScale = baseGravityFactor;
         }
+
         if(platform != null){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
+        }
+
+        if (grappleState == GrappleState.Pulled){
+            pullGrapple();
         }
     }
 
