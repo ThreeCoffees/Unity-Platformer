@@ -422,7 +422,16 @@ public class PlayerController : MonoBehaviour
 
     void drawDebug() {
         if (grapplingSpring.enabled){
-            Debug.DrawLine(transform.position,  grapplingSpring.connectedBody.transform.TransformPoint(grapplingSpring.connectedAnchor), Color.red);
+            Vector2 anchorPosition = grapplingSpring.connectedBody.transform.TransformPoint(grapplingSpring.connectedAnchor);
+            
+            Debug.DrawLine(transform.position, anchorPosition, Color.red);
+            
+            Vector2 anchorToPlayer = (Vector2)transform.position - anchorPosition;
+            Vector2 dist = anchorToPlayer.normalized * grapplingSpring.distance;
+            // Perpendicular to anchorToPlayer
+            Vector2 bar = new Vector2(dist.y, -dist.x);
+            bar *= 0.1f;
+            Debug.DrawLine(anchorPosition+dist + bar, anchorPosition+dist - bar, Color.red);
         }
     }
 }
