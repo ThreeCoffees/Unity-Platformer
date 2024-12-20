@@ -168,7 +168,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext ctx){
         moveDirection = ctx.ReadValue<Vector2>();
-        Debug.Log("Move " + moveDirection);
 
         if(moveDirection.x >= 0.01){
             isFacingRight = true;
