@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext ctx){
         moveDirection = ctx.ReadValue<Vector2>();
+        Debug.Log("Move " + moveDirection);
 
         if(moveDirection.x >= 0.01){
             isFacingRight = true;
@@ -233,7 +234,7 @@ public class PlayerController : MonoBehaviour
         // if (grappleState != GrappleState.Launched){ return; }
         if (grapplingSpring.enabled == false){ return; }
 
-        if(ctx.performed){ // FIXME: gets called only once instead of every frame
+        if(ctx.performed){
             // Debug.Log("Pulling grapple");
             grapplingSpring.enabled = true;
             grappleState = GrappleState.Pulled;
