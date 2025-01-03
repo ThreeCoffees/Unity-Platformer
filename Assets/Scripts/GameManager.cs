@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TMP_Text inGameScoreText;
 
     private Image[] keyIcons;
+    [Header("Keys")]
     [SerializeField] private GameObject keysIconsSpawner;
     [SerializeField] public int keyCount = 3;
     [SerializeField] private GameObject keyIcon;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
     }
 
     private Image[] livesIcons;
+    [Header("Lives")]
     [SerializeField] private GameObject livesIconsSpawner;
     [Range(1, 10)] [SerializeField] public int maxLives = 3;
     [SerializeField] private GameObject lifeIcon;
