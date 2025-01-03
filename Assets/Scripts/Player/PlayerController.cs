@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Features")]
-    [Range(1, 10)] [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawnPoint;
     
     [Header("Audio")]
@@ -56,21 +55,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip grappleLaunchSound; // TODO
     [SerializeField] private AudioClip grapplePullSound; // TODO
 
-    // public int keysFound = 0;
-    // public int keysNumber = 3;
     public LayerMask groundLayer;
-
-    /*private int _score = 0;
-    public int score {
-        get {
-            return _score;
-        }
-        set {
-            _score = value;
-            Debug.Log("Score: " + _score);
-        }
-    }*/
-
 
     public Rigidbody2D rigidBody {get; private set;}
     public Animator animator {get; private set;}
@@ -99,7 +84,6 @@ public class PlayerController : MonoBehaviour
     // On component creation
     private void Awake()
     {
-        // GameManager.instance.lives = maxLives; // FIXME: GameManager is hardcoded to support 3 lives max.
         rigidBody = GetComponent<Rigidbody2D>();
         grapplingSpring = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
@@ -168,7 +152,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMovement(InputAction.CallbackContext ctx){
-        Debug.Log("moving");
         moveDirection = ctx.ReadValue<Vector2>();
 
         if(moveDirection.x >= 0.01){
@@ -303,7 +286,7 @@ public class PlayerController : MonoBehaviour
             audioSource.PlayOneShot(keySound, AudioListener.volume);
         }
         if(other.CompareTag("Heart")){
-            if (GameManager.instance.lives < maxLives){
+            if (GameManager.instance.lives < GameManager.instance.maxLives){
                 GameManager.instance.lives += 1;
                 other.gameObject.SetActive(false);
                 audioSource.PlayOneShot(lifeSound, AudioListener.volume);
@@ -311,7 +294,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Finish")){
             // NOTE: The rest of the finish interaction is in Finish.cs
-            if (GameManager.instance.keysFound == GameManager.instance.keyIcons.Length){
+            if (GameManager.instance.keysFound == GameManager.instance.keyCount){
                 audioSource.PlayOneShot(finishSound, AudioListener.volume);
             }
         }

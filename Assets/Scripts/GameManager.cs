@@ -40,7 +40,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Canvas inGameCanvas;
     [SerializeField] public TMP_Text inGameScoreText;
 
-    [SerializeField] public Image[] keyIcons;
+    private Image[] keyIcons;
+    [SerializeField] private GameObject keysIconsSpawner;
+    [SerializeField] public int keyCount = 3;
+    [SerializeField] private GameObject keyIcon;
 
     private int _keysFound = 0;
     public static readonly Color disabledKeyColor = new Color(0.3f,0.3f,0.3f,0.7f);
@@ -56,7 +59,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] public Image[] livesIcons;
+    private Image[] livesIcons;
+    [SerializeField] private GameObject livesIconsSpawner;
+    [Range(1, 10)] [SerializeField] public int maxLives = 3;
+    [SerializeField] private GameObject lifeIcon;
     
     enum LifeUIPolicy {
         GRAY_OUT, DISABLE
@@ -243,6 +249,9 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(currScene.name + "_HighScore", 0);
         }
 
+        SetKeyCount();
+        SetLivesCount();
+
         foreach (Image keyIcon in keyIcons){
             keyIcon.color = Color.gray;
         }
@@ -276,5 +285,25 @@ public class GameManager : MonoBehaviour
     public void IncreaseGraphics(){
         QualitySettings.IncreaseLevel();
         graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+    }
+
+    private void SetKeyCount(){
+        keyIcons = new Image[keyCount];
+        for(int i = 0; i < keyCount; i++){
+            GameObject key = Instantiate(keyIcon, keysIconsSpawner.transform);
+            key.transform.SetParent(keysIconsSpawner.transform);
+            keyIcons[i] = key.GetComponent<Image>();
+        }
+    }
+
+    private void SetLivesCount(){
+        livesIcons = new Image[maxLives];
+        for(int i = 0; i < maxLives; i++){
+            GameObject life = Instantiate(lifeIcon, livesIconsSpawner.transform);
+            life.transform.SetParent(livesIconsSpawner.transform);
+            livesIcons[i] = life.GetComponent<Image>();
+        }
+        lives = maxLives;
+        Debug.Log(lives);
     }
 }
