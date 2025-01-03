@@ -9,6 +9,7 @@ TagManager:
   - MovingPlatform
   - Bonus
   - Ladder
+  - WindZone
   - Enemy
   - Key
   - Heart
@@ -51,6 +52,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 965561887
+    locked: 0
+  - name: WindZones
+    uniqueID: 2944981593
     locked: 0
   - name: Tilemap
     uniqueID: 3687889231
