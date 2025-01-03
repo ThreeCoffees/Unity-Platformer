@@ -214,7 +214,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveInput: {fileID: -2764349350521114356, guid: b920051952e93f1898fa8a85c2a1dd60, type: 3}
 --- !u!212 &1242634622337113283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -388,6 +387,34 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cbbd1848-cf4c-4747-957b-d93f4bb89cd2
     m_ActionName: PlayerMovement/JumpCut[/Keyboard/space,/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4251518513318113673}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79e2a410-d9f1-40a1-8339-46e3617cfa63
+    m_ActionName: PlayerMovement/PauseGame[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: edbe3cf1-21d3-498e-8ec0-6707fef7e816
+    m_ActionName: UI/Exit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 73ed03cf-7ea7-45eb-9fcf-5806c0ecb121
+    m_ActionName: UI/SwitchFocus[/Keyboard/w,/Keyboard/s,/Keyboard/upArrow,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1f3c9c3-3967-4b46-a764-718f5c839799
+    m_ActionName: UI/Choose[/Keyboard/enter,/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
