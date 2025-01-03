@@ -249,12 +249,15 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(currScene.name + "_HighScore", 0);
         }
 
-        SetKeyCount();
-        SetLivesCount();
+        if(inGameCanvas != null){
+            SetKeyCount();
+            SetLivesCount();
 
-        foreach (Image keyIcon in keyIcons){
-            keyIcon.color = Color.gray;
+            foreach (Image keyIcon in keyIcons){
+                keyIcon.color = Color.gray;
+            }
         }
+
 
         if (graphicsQualityText != null){
             graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
