@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,10 +27,25 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangGravityFactor = 0.5f;
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
-    [Header("Features")]
-    [Range(1, 10)] [SerializeField] private int maxLives = 3;
+    [Header("Grapple")]
+    [Range(0f, 1000f)] [SerializeField] private float grappleMaxRange = 500f;
+
+        private enum GrappleState {
+        Released,
+        Launched,
+        Pulled
+    } 
+    // NOTE: grappleState is not intended to be modified in the inspector
+    [SerializeField] GrappleState grappleState = GrappleState.Released;
+    [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
+    [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
+
+
+    [Header("Respawning")]
     [SerializeField] private GameObject respawnPoint;
+    private GameObject checkPoint;
     
+    [Header("Audio")]
     [SerializeField] private AudioClip bonusSound;
     [SerializeField] private AudioClip hurtSound;
     [SerializeField] private AudioClip jumpSound;
@@ -37,22 +53,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip killSound;
     [SerializeField] private AudioClip finishSound;
     [SerializeField] private AudioClip lifeSound;
+    [SerializeField] private AudioClip grappleLaunchSound; // TODO
+    [SerializeField] private AudioClip grapplePullSound; // TODO
 
-    // public int keysFound = 0;
-    // public int keysNumber = 3;
     public LayerMask groundLayer;
-
-    /*private int _score = 0;
-    public int score {
-        get {
-            return _score;
-        }
-        set {
-            _score = value;
-            Debug.Log("Score: " + _score);
-        }
-    }*/
-
 
     public Rigidbody2D rigidBody {get; private set;}
     public Animator animator {get; private set;}
@@ -72,6 +76,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveDirection;
 
+    private SpringJoint2D grapplingSpring;
+
     private AudioSource audioSource;
 
 
@@ -79,17 +85,19 @@ public class PlayerController : MonoBehaviour
     // On component creation
     private void Awake()
     {
-        // GameManager.instance.lives = maxLives; // FIXME: GameManager is hardcoded to support 3 lives max.
-        transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
+        grapplingSpring = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        checkPoint = respawnPoint;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = respawnPoint.transform.position;
         rigidBody.gravityScale = baseGravityFactor;
+        grapplingSpring.enabled = false;
     }
 
     // Update is called once per frame
@@ -169,6 +177,82 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void onGrappleLaunch(InputAction.CallbackContext ctx){
+        if(grappleState != GrappleState.Released){ return; }
+
+        if(ctx.started){
+            // Debug.Log("Preparing grapple");
+            Time.timeScale = grappleSlowMotionFactor;
+        }
+        if(ctx.canceled){
+            // Debug.Log("Launching grapple");
+            // Project a ray through mouse position up to a nearby collider
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector2 playerPosition = transform.position;
+            Vector2 direction = (mousePosition - playerPosition).normalized;
+            
+            // If the ray hits a collider, create a spring joint between the player and the hit rigidbody
+            RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
+            if(hit.collider != null){
+                // Debug.Log("Grapple launched");
+                Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
+                if(hitRigidbody == null){
+                    Debug.LogWarning("Grapple hit a non-rigidbody collider");
+                    return;
+                }
+                
+                grapplingSpring.connectedBody = hitRigidbody;
+                grapplingSpring.distance = Vector2.Distance(playerPosition, hit.point);
+                grapplingSpring.connectedAnchor = hitRigidbody.transform.InverseTransformPoint(hit.point);
+
+                Debug.Log(grapplingSpring.attachedRigidbody);
+                
+                grapplingSpring.enabled = true;
+                grappleState = GrappleState.Launched;
+            }
+
+            // Debug.Log("Grapple:"+grappleState + " Connected to:"+hit.collider);
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    public void onGrapplePull(InputAction.CallbackContext ctx){
+        // if (grappleState != GrappleState.Launched){ return; }
+        if (grapplingSpring.enabled == false){ return; }
+
+        if(ctx.performed){
+            // Debug.Log("Pulling grapple");
+            grapplingSpring.enabled = true;
+            grappleState = GrappleState.Pulled;
+        }
+        if (ctx.canceled){
+            releaseGrapple();
+        }
+    }
+
+    public void pullGrapple(){ 
+        grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
+        if (grapplingSpring.distance <= 0){
+            // Debug.Log("Grapple pulled fully");
+            releaseGrapple();
+        }
+    }
+
+    public void onGrappleRelease(InputAction.CallbackContext ctx){
+        // if (grappleState == GrappleState.Released){ return; }
+
+        if(ctx.started){
+            releaseGrapple();
+        }
+    }
+
+    public void releaseGrapple(){
+        Debug.Log("Releasing grapple");
+        grapplingSpring.enabled = false;
+        grappleState = GrappleState.Released;
+    }
+
+
     private void OnTriggerStay2D(Collider2D other) {
         // checks for collision and if it's happening starts the timer in which we can still jump after it stops.
         if((groundLayer.value & (1 << other.transform.gameObject.layer)) > 0) {
@@ -202,9 +286,10 @@ public class PlayerController : MonoBehaviour
             other.gameObject.GetComponent<SpriteRenderer>().color = GameManager.disabledKeyColor;
             other.enabled = false;
             audioSource.PlayOneShot(keySound, AudioListener.volume);
+            checkPoint = other.gameObject;
         }
         if(other.CompareTag("Heart")){
-            if (GameManager.instance.lives < maxLives){
+            if (GameManager.instance.lives < GameManager.instance.maxLives){
                 GameManager.instance.lives += 1;
                 other.gameObject.SetActive(false);
                 audioSource.PlayOneShot(lifeSound, AudioListener.volume);
@@ -212,7 +297,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Finish")){
             // NOTE: The rest of the finish interaction is in Finish.cs
-            if (GameManager.instance.keysFound == GameManager.instance.keyIcons.Length){
+            if (GameManager.instance.keysFound == GameManager.instance.keyCount){
                 audioSource.PlayOneShot(finishSound, AudioListener.volume);
             }
         }
@@ -227,6 +312,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);
+        transform.position = checkPoint.transform.position;
     }
 
     private void OnTriggerExit2D(Collider2D other) {
@@ -256,8 +342,12 @@ public class PlayerController : MonoBehaviour
         } else {
             rigidBody.gravityScale = baseGravityFactor;
         }
+
         if(platform != null){
             rigidBody.velocity = new Vector2(rigidBody.velocity.x + platform.velocity.x/2, rigidBody.velocity.y);
+        }
+        if (grappleState == GrappleState.Pulled){
+            pullGrapple();
         }
         rigidBody.AddForce(windForce, ForceMode2D.Force);
     }
@@ -326,6 +416,17 @@ public class PlayerController : MonoBehaviour
     }
 
     void drawDebug() {
-
+        if (grapplingSpring.enabled){
+            Vector2 anchorPosition = grapplingSpring.connectedBody.transform.TransformPoint(grapplingSpring.connectedAnchor);
+            
+            Debug.DrawLine(transform.position, anchorPosition, Color.red);
+            
+            Vector2 anchorToPlayer = (Vector2)transform.position - anchorPosition;
+            Vector2 dist = anchorToPlayer.normalized * grapplingSpring.distance;
+            // Perpendicular to anchorToPlayer
+            Vector2 bar = new Vector2(dist.y, -dist.x);
+            bar *= 0.1f;
+            Debug.DrawLine(anchorPosition+dist + bar, anchorPosition+dist - bar, Color.red);
+        }
     }
 }

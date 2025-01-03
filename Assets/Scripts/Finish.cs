@@ -20,7 +20,7 @@ public class Finish : MonoBehaviour
     {
         if(other.CompareTag("Player")){
             GameManager gm = GameManager.instance;
-            if(gm.keysFound == gm.keyIcons.Length){
+            if(gm.keysFound == gm.keyCount){
                 Debug.Log("Game Over");
                 GameManager.instance.LevelCompleted();
             }
