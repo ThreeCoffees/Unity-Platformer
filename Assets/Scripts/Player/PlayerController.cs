@@ -100,7 +100,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         // GameManager.instance.lives = maxLives; // FIXME: GameManager is hardcoded to support 3 lives max.
-        transform.position = respawnPoint.transform.position;
         rigidBody = GetComponent<Rigidbody2D>();
         grapplingSpring = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
@@ -110,6 +109,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = respawnPoint.transform.position;
         rigidBody.gravityScale = baseGravityFactor;
         grapplingSpring.enabled = false;
     }

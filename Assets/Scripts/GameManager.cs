@@ -247,7 +247,9 @@ public class GameManager : MonoBehaviour
             keyIcon.color = Color.gray;
         }
 
-        // graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+        if (graphicsQualityText != null){
+            graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+        }
     }
 
     protected virtual void Update(){
