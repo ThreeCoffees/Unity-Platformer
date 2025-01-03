@@ -41,8 +41,9 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
 
 
-    [Header("Features")]
+    [Header("Respawning")]
     [SerializeField] private GameObject respawnPoint;
+    private GameObject checkPoint;
     
     [Header("Audio")]
     [SerializeField] private AudioClip bonusSound;
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour
         grapplingSpring = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        checkPoint = respawnPoint;
     }
 
     // Start is called before the first frame update
@@ -284,6 +286,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.GetComponent<SpriteRenderer>().color = GameManager.disabledKeyColor;
             other.enabled = false;
             audioSource.PlayOneShot(keySound, AudioListener.volume);
+            checkPoint = other.gameObject;
         }
         if(other.CompareTag("Heart")){
             if (GameManager.instance.lives < GameManager.instance.maxLives){
@@ -309,6 +312,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);
+        transform.position = checkPoint.transform.position;
     }
 
     private void OnTriggerExit2D(Collider2D other) {
