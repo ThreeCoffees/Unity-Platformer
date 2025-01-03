@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadNewScene(string sceneName){
-        SceneManager.LoadSceneAsync(sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame(){
@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void RestartScene(){
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void SetGameState(GameState newGameState) {
@@ -247,10 +247,12 @@ public class GameManager : MonoBehaviour
             keyIcon.color = Color.gray;
         }
 
-        //graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+        if (graphicsQualityText != null){
+            graphicsQualityText.GetComponent<TMP_Text>().text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+        }
     }
 
-    void Update(){
+    protected virtual void Update(){
         if(currGameState == GameState.IN_GAME){
             timer += Time.deltaTime;
             string text = string.Format("{0:00}:{1:00}.{2:00}", 

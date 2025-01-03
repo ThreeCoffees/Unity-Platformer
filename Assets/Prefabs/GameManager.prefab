@@ -48,6 +48,16 @@ MonoBehaviour:
   pauseScreen: {fileID: 0}
   gameOverScreen: {fileID: 0}
   levelFinishedScreen: {fileID: 0}
+  highScoreText: {fileID: 0}
+  scoreText: {fileID: 0}
+  graphicsQualityText: {fileID: 0}
+  inGameCanvas: {fileID: 0}
+  inGameScoreText: {fileID: 0}
+  keyIcons: []
+  livesIcons: []
+  lifeUIPolicy: 0
+  timerText: {fileID: 0}
+  killedEnemiesText: {fileID: 0}
 --- !u!114 &288042958839834211
 MonoBehaviour:
   m_ObjectHideFlags: 0
