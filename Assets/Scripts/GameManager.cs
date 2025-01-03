@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour
     }
 
     void SetGameState(GameState newGameState) {
+        if(inGameCanvas == null) return;
         currGameState = newGameState;
         if (currGameState == GameState.IN_GAME) {
             inGameCanvas.enabled = true;
@@ -229,7 +230,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("Duplicate Game Manager", gameObject);
         }
 
-        scoreText.GetComponent<TMP_Text>().text = "" + score;
+        if(scoreText != null){
+            scoreText.GetComponent<TMP_Text>().text = "" + score;
+        }
 
         playerInput = GetComponent<PlayerInput>();
         SetGameState(GameState.IN_GAME);
@@ -252,7 +255,9 @@ public class GameManager : MonoBehaviour
             timer += Time.deltaTime;
             string text = string.Format("{0:00}:{1:00}.{2:00}", 
                 Mathf.Floor(timer / 60), Mathf.Floor(timer % 60), Mathf.Floor((timer * 100) % 100));
-            timerText.text = text;
+            if(timerText != null) {
+                timerText.text = text;
+            }
         }
     }
 

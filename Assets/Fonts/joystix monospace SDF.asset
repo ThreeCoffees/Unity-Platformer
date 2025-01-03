@@ -928,6 +928,10 @@ MonoBehaviour:
     m_GlyphIndex: 24
     m_Scale: 1
   - m_ElementType: 1
+    m_Unicode: 57
+    m_GlyphIndex: 27
+    m_Scale: 1
+  - m_ElementType: 1
     m_Unicode: 55
     m_GlyphIndex: 25
     m_Scale: 1
