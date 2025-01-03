@@ -19,14 +19,15 @@ public class Finish : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player")){
-            PlayerController pc = other.gameObject.GetComponentInParent<PlayerController>();
-            if(pc.keysFound == pc.keysNumber){
+            GameManager gm = GameManager.instance;
+            if(gm.keysFound == gm.keyIcons.Length){
                 Debug.Log("Game Over");
                 GameManager.instance.LevelCompleted();
             }
             else {
                 Debug.Log("Not enough keys");
             }
+            // NOTE: audio playback is in PlayerController.cs
         }
     }
 }
