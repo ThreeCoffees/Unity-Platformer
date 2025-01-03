@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMovement(InputAction.CallbackContext ctx){
+        Debug.Log("moving");
         moveDirection = ctx.ReadValue<Vector2>();
 
         if(moveDirection.x >= 0.01){

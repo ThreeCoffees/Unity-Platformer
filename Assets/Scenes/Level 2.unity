@@ -288,6 +288,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 917af276c778a30f9aaf08d27734029b, type: 3}
+--- !u!114 &512156289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8348409389652273710, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+  m_PrefabInstance: {fileID: 7680267375355050291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578de912e7460d262bfdbe940d9b5b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &582022911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -855,7 +866,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1638461457
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1262,7 +1273,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1638461457
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -6771,7 +6782,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1174664909
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -7271,6 +7282,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelBasic
       objectReference: {fileID: 0}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 512156289}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562130454108839660, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8348409389652273710, guid: bee0025835b82fd32beb3a86f6eac7f7, type: 3}
       propertyPath: timerText
       value: 
@@ -7396,7 +7435,7 @@ SceneRoots:
   - {fileID: 1156573272}
   - {fileID: 9146538592816121298}
   - {fileID: 582022911}
-  - {fileID: 1074445263}
+  - {fileID: 1936882478}
   - {fileID: 7680267375355050291}
   - {fileID: 763204087}
-  - {fileID: 1936882478}
+  - {fileID: 1074445263}

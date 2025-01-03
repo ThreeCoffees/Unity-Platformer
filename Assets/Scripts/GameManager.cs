@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadNewScene(string sceneName){
-        SceneManager.LoadSceneAsync(sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame(){
@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void RestartScene(){
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void SetGameState(GameState newGameState) {
