@@ -340,6 +340,7 @@ public class PlayerController : MonoBehaviour
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);
         releaseGrapple();
         transform.position = checkPoint.transform.position;
+        rigidBody.velocity = new Vector2(0,0);
     }
 
     private void OnTriggerExit2D(Collider2D other) {
