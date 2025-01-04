@@ -729,7 +729,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1174664909
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1072,7 +1072,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -607078065
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2340,6 +2340,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1242634622337113283, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242634622337113283, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1043588765
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433806578022069764, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3016332960304088242, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2348,6 +2368,18 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 2018877801}
+    - target: {fileID: 4251518513318113673, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: grapplingSpring
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711300998907679302, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711300998907679302, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1638461457
+      objectReference: {fileID: 0}
     - target: {fileID: 5685018018581709781, guid: 39bcdfe15dacd2dbe90a099ebb57788f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.000000014901161

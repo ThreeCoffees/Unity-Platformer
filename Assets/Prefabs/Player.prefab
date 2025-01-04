@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 8496199378755052224}
   - component: {fileID: 2433806578022069764}
   - component: {fileID: 5136959420378717133}
+  - component: {fileID: 2353367611571843777}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -180,6 +181,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6201396777458307068}
+  - {fileID: 7002054111022124784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4251518513318113673
@@ -208,6 +210,12 @@ MonoBehaviour:
   fallGravityFactor: 1.5
   hangGravityFactor: 0.85
   hangThreshold: 1.5
+  grappleMaxRange: 500
+  grappleState: 0
+  grappleSlowMotionFactor: 0.2
+  grapplePullForce: 30
+  ropeWrapper: {fileID: 4661276389522337905}
+  ropeSprite: {fileID: 4711300998907679302}
   maxLives: 3
   respawnPoint: {fileID: 0}
   bonusSound: {fileID: 8300000, guid: 2e1c0edfc97324f3cbdc4ed5f343753b, type: 3}
@@ -217,6 +225,8 @@ MonoBehaviour:
   killSound: {fileID: 8300000, guid: 893f218bd3d93406c867dec435b15af8, type: 3}
   finishSound: {fileID: 8300000, guid: e7307cc4d04404304a7c695958a2648d, type: 3}
   lifeSound: {fileID: 8300000, guid: 6a1c983933aa94661a32c78db2888ae5, type: 3}
+  grappleLaunchSound: {fileID: 0}
+  grapplePullSound: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -258,8 +268,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1638461457
-  m_SortingLayer: 5
+  m_SortingLayerID: -1043588765
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -397,7 +407,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4251518513318113673}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnPause
+        m_MethodName: onGrappleLaunch
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -407,20 +417,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 79e2a410-d9f1-40a1-8339-46e3617cfa63
-    m_ActionName: PlayerMovement/PauseGame[/Keyboard/escape]
+    m_ActionId: 8007405e-8028-4bfb-b944-f11c54bebd3a
+    m_ActionName: PlayerMovement/GrappleLaunch[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: edbe3cf1-21d3-498e-8ec0-6707fef7e816
-    m_ActionName: UI/Exit[/Keyboard/escape]
+      m_Calls:
+      - m_Target: {fileID: 4251518513318113673}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onGrapplePull
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e4f05a6-704f-4f4d-9d3f-fa3a80636238
+    m_ActionName: PlayerMovement/GrapplePull[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 73ed03cf-7ea7-45eb-9fcf-5806c0ecb121
-    m_ActionName: UI/SwitchFocus[/Keyboard/w,/Keyboard/s,/Keyboard/upArrow,/Keyboard/downArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e1f3c9c3-3967-4b46-a764-718f5c839799
-    m_ActionName: UI/Choose[/Keyboard/enter,/Keyboard/space]
+      m_Calls:
+      - m_Target: {fileID: 4251518513318113673}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onGrappleRelease
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 03b33a13-605b-4839-b6f4-29d2e462d20d
+    m_ActionName: PlayerMovement/GrappleRelease[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -522,6 +552,59 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!231 &2353367611571843777
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016332960304088242}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 2}
+  m_AutoConfigureDistance: 0
+  m_Distance: 0.005
+  m_DampingRatio: 0
+  m_Frequency: 1
+--- !u!1 &4661276389522337905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7002054111022124784}
+  m_Layer: 0
+  m_Name: RopeWrapper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7002054111022124784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4661276389522337905}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2584737830151870681}
+  m_Father: {fileID: 5685018018581709781}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5620083238079898069
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,3 +638,87 @@ Transform:
   - {fileID: 6743355730139188449}
   m_Father: {fileID: 5685018018581709781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5676638824981682168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2584737830151870681}
+  - component: {fileID: 4711300998907679302}
+  m_Layer: 0
+  m_Name: Rope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2584737830151870681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676638824981682168}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7002054111022124784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &4711300998907679302
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676638824981682168}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1638461457
+  m_SortingLayer: 5
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: eb3d08c6740042f44a73b1a0a5905f56, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 1
+  m_DrawMode: 2
+  m_Size: {x: 0.25, y: 0}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
