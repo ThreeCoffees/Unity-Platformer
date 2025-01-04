@@ -215,10 +215,16 @@ public class PlayerController : MonoBehaviour
             // If the ray hits a collider, create a spring joint between the player and the hit rigidbody
             RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
             if(hit.collider != null){
+                if(hit.collider.gameObject.CompareTag("Spikes")){
+                    Debug.Log("Hit spikes");
+                    Time.timeScale = 1.0f;
+                    return;
+                }
                 // Debug.Log("Grapple launched");
                 Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
                 if(hitRigidbody == null){
                     Debug.LogWarning("Grapple hit a non-rigidbody collider");
+                    Time.timeScale = 1.0f;
                     return;
                 }
                 
@@ -281,6 +287,9 @@ public class PlayerController : MonoBehaviour
     
 
     private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Spikes")){
+            TakeDamage(1);
+        }
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = true;
         } else if(other.CompareTag("MovingPlatform")){
@@ -329,7 +338,9 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);
+        releaseGrapple();
         transform.position = checkPoint.transform.position;
+        rigidBody.velocity = new Vector2(0,0);
     }
 
     private void OnTriggerExit2D(Collider2D other) {
