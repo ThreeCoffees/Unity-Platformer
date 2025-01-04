@@ -217,12 +217,14 @@ public class PlayerController : MonoBehaviour
             if(hit.collider != null){
                 if(hit.collider.gameObject.CompareTag("Spikes")){
                     Debug.Log("Hit spikes");
+                    Time.timeScale = 1.0f;
                     return;
                 }
                 // Debug.Log("Grapple launched");
                 Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
                 if(hitRigidbody == null){
                     Debug.LogWarning("Grapple hit a non-rigidbody collider");
+                    Time.timeScale = 1.0f;
                     return;
                 }
                 
