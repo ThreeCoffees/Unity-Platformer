@@ -332,6 +332,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);
+        releaseGrapple();
         transform.position = checkPoint.transform.position;
     }
 
