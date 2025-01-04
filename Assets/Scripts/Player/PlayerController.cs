@@ -264,6 +264,9 @@ public class PlayerController : MonoBehaviour
     
 
     private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Spikes")){
+            TakeDamage(1);
+        }
         if(other.CompareTag("JumpPoint")){
             isInJumpPoint = true;
         } else if(other.CompareTag("MovingPlatform")){
