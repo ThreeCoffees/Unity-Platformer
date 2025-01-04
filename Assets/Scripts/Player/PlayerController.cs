@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private SpriteRenderer ropeSprite;
 
 
-    [Header("Features")]
-    [Range(1, 10)] [SerializeField] private int maxLives = 3;
+    [Header("Respawning")]
     [SerializeField] private GameObject respawnPoint;
+    private GameObject checkPoint;
     
     [Header("Audio")]
     [SerializeField] private AudioClip bonusSound;
@@ -58,21 +58,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip grappleLaunchSound; // TODO
     [SerializeField] private AudioClip grapplePullSound; // TODO
 
-    // public int keysFound = 0;
-    // public int keysNumber = 3;
     public LayerMask groundLayer;
-
-    /*private int _score = 0;
-    public int score {
-        get {
-            return _score;
-        }
-        set {
-            _score = value;
-            Debug.Log("Score: " + _score);
-        }
-    }*/
-
 
     public Rigidbody2D rigidBody {get; private set;}
     public Animator animator {get; private set;}
@@ -101,11 +87,11 @@ public class PlayerController : MonoBehaviour
     // On component creation
     private void Awake()
     {
-        // GameManager.instance.lives = maxLives; // FIXME: GameManager is hardcoded to support 3 lives max.
         rigidBody = GetComponent<Rigidbody2D>();
         grapplingSpring = GetComponent<SpringJoint2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        checkPoint = respawnPoint;
     }
 
     // Start is called before the first frame update
@@ -189,7 +175,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMovement(InputAction.CallbackContext ctx){
-        Debug.Log("moving");
         moveDirection = ctx.ReadValue<Vector2>();
 
         if(moveDirection.x >= 0.01){
@@ -318,9 +303,10 @@ public class PlayerController : MonoBehaviour
             other.gameObject.GetComponent<SpriteRenderer>().color = GameManager.disabledKeyColor;
             other.enabled = false;
             audioSource.PlayOneShot(keySound, AudioListener.volume);
+            checkPoint = other.gameObject;
         }
         if(other.CompareTag("Heart")){
-            if (GameManager.instance.lives < maxLives){
+            if (GameManager.instance.lives < GameManager.instance.maxLives){
                 GameManager.instance.lives += 1;
                 other.gameObject.SetActive(false);
                 audioSource.PlayOneShot(lifeSound, AudioListener.volume);
@@ -328,7 +314,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Finish")){
             // NOTE: The rest of the finish interaction is in Finish.cs
-            if (GameManager.instance.keysFound == GameManager.instance.keyIcons.Length){
+            if (GameManager.instance.keysFound == GameManager.instance.keyCount){
                 audioSource.PlayOneShot(finishSound, AudioListener.volume);
             }
         }
@@ -343,6 +329,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);
+        transform.position = checkPoint.transform.position;
     }
 
     private void OnTriggerExit2D(Collider2D other) {
