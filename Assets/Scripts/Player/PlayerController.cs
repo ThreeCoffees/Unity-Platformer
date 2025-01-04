@@ -215,6 +215,10 @@ public class PlayerController : MonoBehaviour
             // If the ray hits a collider, create a spring joint between the player and the hit rigidbody
             RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
             if(hit.collider != null){
+                if(hit.collider.gameObject.CompareTag("Spikes")){
+                    Debug.Log("Hit spikes");
+                    return;
+                }
                 // Debug.Log("Grapple launched");
                 Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
                 if(hitRigidbody == null){
