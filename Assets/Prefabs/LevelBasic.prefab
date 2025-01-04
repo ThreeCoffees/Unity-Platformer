@@ -242,12 +242,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 423920785741629828, guid: 4552ff3edc1cc2ae393b40c49f36bcdc, type: 3}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: keyCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: lifeIcon
       value: 
       objectReference: {fileID: 6689023159916404506, guid: 0f7e2ae1651290b4cbd230b205cdcddb, type: 3}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: maxLives
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: scoreText
