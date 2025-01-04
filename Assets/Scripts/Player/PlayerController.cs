@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("Grapple")]
     [Range(0f, 1000f)] [SerializeField] private float grappleMaxRange = 500f;
 
-        private enum GrappleState {
+	private enum GrappleState {
         Released,
         Launched,
         Pulled
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GrappleState grappleState = GrappleState.Released;
     [Range(0f, 1.0f)] [SerializeField] private float grappleSlowMotionFactor = 0.5f;
     [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
+	[SerializeField] private GameObject ropeWrapper;
+	[SerializeField] private SpriteRenderer ropeSprite;
 
 
     [Header("Respawning")]
@@ -149,6 +151,25 @@ public class PlayerController : MonoBehaviour
 
         // Flip sprite
         transform.localScale = isFacingRight ? new Vector3(1,1,1) : new Vector3(-1,1,1);
+		ropeSprite.flipX = !isFacingRight;
+
+		// Update rope sprite
+		if(grapplingSpring.enabled) {
+			float targetDistance = grapplingSpring.distance;
+
+			Vector2 displacement = grapplingSpring.connectedBody.transform.TransformPoint(grapplingSpring.connectedAnchor) - transform.position;
+			Vector2 direction = displacement.normalized;
+			float distance = displacement.magnitude;
+
+			ropeSprite.size = new Vector2(0.25f, targetDistance);
+			ropeSprite.transform.localScale = new Vector3(1, distance/targetDistance, 1);
+			ropeSprite.transform.localPosition = new Vector3(0, distance/2, 0);
+			ropeWrapper.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, direction));
+		}
+		else {
+			ropeSprite.size = new Vector2(0.25f, 0);
+		}
+
         // Debug 
         drawDebug();
     }
@@ -232,10 +253,6 @@ public class PlayerController : MonoBehaviour
 
     public void pullGrapple(){ 
         grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
-        if (grapplingSpring.distance <= 0){
-            // Debug.Log("Grapple pulled fully");
-            releaseGrapple();
-        }
     }
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
