@@ -210,13 +210,13 @@ MonoBehaviour:
   fallGravityFactor: 1.5
   hangGravityFactor: 0.85
   hangThreshold: 1.5
-  grappleMaxRange: 500
+  grappleAllowed: 1
+  grappleMaxRange: 20
   grappleState: 0
   grappleSlowMotionFactor: 0.2
   grapplePullForce: 30
   ropeWrapper: {fileID: 4661276389522337905}
   ropeSprite: {fileID: 4711300998907679302}
-  maxLives: 3
   respawnPoint: {fileID: 0}
   bonusSound: {fileID: 8300000, guid: 2e1c0edfc97324f3cbdc4ed5f343753b, type: 3}
   hurtSound: {fileID: 8300000, guid: 4b65b8adf1a5d436785169345c0264fd, type: 3}
