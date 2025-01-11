@@ -66,8 +66,8 @@ TagManager:
   - name: Platforms
     uniqueID: 1638461457
     locked: 0
-  - name: Ingame UI
-    uniqueID: 3902944973
+  - name: IngameUI
+    uniqueID: 3565615271
     locked: 0
   - name: Enemies
     uniqueID: 3259254299
