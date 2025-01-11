@@ -242,13 +242,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 423920785741629828, guid: 4552ff3edc1cc2ae393b40c49f36bcdc, type: 3}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: keyCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: lifeIcon
       value: 
       objectReference: {fileID: 6689023159916404506, guid: 0f7e2ae1651290b4cbd230b205cdcddb, type: 3}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: maxLives
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: timeText
+      value: 
+      objectReference: {fileID: 8422198356674860163}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: scoreText
       value: 
@@ -262,13 +270,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 273283758679056457}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
+      propertyPath: bestTimeText
+      value: 
+      objectReference: {fileID: 8877776001234623129}
+    - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: inGameCanvas
       value: 
       objectReference: {fileID: 4775554492474126893}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: highScoreText
       value: 
-      objectReference: {fileID: 1553576105644325597}
+      objectReference: {fileID: 4561061007707975040}
     - target: {fileID: 5722710538980889249, guid: b6acb5ac285ad57cfa934a401254fe26, type: 3}
       propertyPath: gameOverScreen
       value: 
@@ -615,9 +627,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6029681169690333632, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
   m_PrefabInstance: {fileID: 6152070163653299131}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1553576105644325597 stripped
+--- !u!1 &4561061007707975040 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4679207047447933286, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7650683287266141755, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
   m_PrefabInstance: {fileID: 6152070163653299131}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &4683431228911647204 stripped
@@ -628,6 +640,16 @@ RectTransform:
 --- !u!1 &8053944397448277324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4226013597575374583, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_PrefabInstance: {fileID: 6152070163653299131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8422198356674860163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2414250390501351224, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
+  m_PrefabInstance: {fileID: 6152070163653299131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8877776001234623129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3338496653115412770, guid: 8c4a93d79343256e5b95390e100ba1f8, type: 3}
   m_PrefabInstance: {fileID: 6152070163653299131}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6323132596900924564
