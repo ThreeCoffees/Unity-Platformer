@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level 1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalizedLevels/UnderOverUnderground.unity
     guid: c127bb36ac401a14c89d8d84ba903405
+  - enabled: 1
+    path: Assets/Scenes/FinalizedLevels/ItsWimdy.unity
+    guid: 04e9ba3a191ee244eb041d3669f012c6
   m_configObjects: {}
