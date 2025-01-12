@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 4f)] [SerializeField] private float hangThreshold = 1.0f;
 
     [Header("Grapple")]
+	[SerializeField] private bool grappleAllowed = true;
     [Range(0f, 1000f)] [SerializeField] private float grappleMaxRange = 500f;
 
 	private enum GrappleState {
@@ -199,6 +200,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
+		if(!grappleAllowed) { return; }
         if(grappleState != GrappleState.Released){ return; }
 
         if(ctx.started){
@@ -244,6 +246,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrapplePull(InputAction.CallbackContext ctx){
+		if(!grappleAllowed) { return; }
         // if (grappleState != GrappleState.Launched){ return; }
         if (grapplingSpring.enabled == false){ return; }
 
@@ -262,6 +265,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
+		if(!grappleAllowed) { return; }
         // if (grappleState == GrappleState.Released){ return; }
 
         if(ctx.started){
@@ -270,6 +274,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void releaseGrapple(){
+		if(!grappleAllowed) { return; }
         Debug.Log("Releasing grapple");
         grapplingSpring.enabled = false;
         grappleState = GrappleState.Released;
