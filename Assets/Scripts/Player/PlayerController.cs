@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour
                 
                 grapplingSpring.enabled = true;
                 grappleState = GrappleState.Launched;
+                audioSource.PlayOneShot(grappleLaunchSound, AudioListener.volume);
             }
 
             // Debug.Log("Grapple:"+grappleState + " Connected to:"+hit.collider);
@@ -262,6 +263,7 @@ public class PlayerController : MonoBehaviour
             // Debug.Log("Pulling grapple");
             grapplingSpring.enabled = true;
             grappleState = GrappleState.Pulled;
+            audioSource.PlayOneShot(grapplePullSound, AudioListener.volume);
         }
         if (ctx.canceled){
             releaseGrapple();

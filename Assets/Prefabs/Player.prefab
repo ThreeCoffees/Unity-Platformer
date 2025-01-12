@@ -218,6 +218,7 @@ MonoBehaviour:
   ropeWrapper: {fileID: 4661276389522337905}
   ropeSprite: {fileID: 4711300998907679302}
   respawnPoint: {fileID: 0}
+  invincibilityTimer: 0.5
   bonusSound: {fileID: 8300000, guid: 2e1c0edfc97324f3cbdc4ed5f343753b, type: 3}
   hurtSound: {fileID: 8300000, guid: 4b65b8adf1a5d436785169345c0264fd, type: 3}
   jumpSound: {fileID: 8300000, guid: f52028ac57b2a49f7bcf1ec0a7e6b52c, type: 3}
@@ -225,8 +226,8 @@ MonoBehaviour:
   killSound: {fileID: 8300000, guid: 893f218bd3d93406c867dec435b15af8, type: 3}
   finishSound: {fileID: 8300000, guid: e7307cc4d04404304a7c695958a2648d, type: 3}
   lifeSound: {fileID: 8300000, guid: 6a1c983933aa94661a32c78db2888ae5, type: 3}
-  grappleLaunchSound: {fileID: 0}
-  grapplePullSound: {fileID: 0}
+  grappleLaunchSound: {fileID: 8300000, guid: 4d60a84f34e8d48309cd3fb190e66a8e, type: 3}
+  grapplePullSound: {fileID: 8300000, guid: b50a5de5297164efe8ba6d2b0b4b7d4d, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -269,7 +270,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1043588765
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
