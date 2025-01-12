@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     private Image[] livesIcons;
     [Header("Lives")]
+	[SerializeField] private bool infiniteLives = false;
     [SerializeField] private GameObject livesIconsSpawner;
     [Range(1, 10)] [SerializeField] public int maxLives = 3;
     [SerializeField] private GameObject lifeIcon;
@@ -82,6 +83,8 @@ public class GameManager : MonoBehaviour
             return _lives;
         }
         set {
+			if(infiniteLives) return;
+			
             _lives = value;
             Debug.Log("Lives: " + _lives);
             
@@ -110,7 +113,7 @@ public class GameManager : MonoBehaviour
                 // transform.position = respawnPoint.transform.position; 
                 // lives = maxLives;
                 
-                GameOver();
+				GameOver();
             }
         }
     }
@@ -319,6 +322,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void SetLivesCount(){
+		if(infiniteLives) return;
         livesIcons = new Image[maxLives];
         for(int i = 0; i < maxLives; i++){
             GameObject life = Instantiate(lifeIcon, livesIconsSpawner.transform);
