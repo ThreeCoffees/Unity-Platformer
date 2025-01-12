@@ -53,8 +53,12 @@ MonoBehaviour:
   graphicsQualityText: {fileID: 0}
   inGameCanvas: {fileID: 0}
   inGameScoreText: {fileID: 0}
-  keyIcons: []
-  livesIcons: []
+  keysIconsSpawner: {fileID: 0}
+  keyCount: 3
+  keyIcon: {fileID: 0}
+  livesIconsSpawner: {fileID: 0}
+  maxLives: 5
+  lifeIcon: {fileID: 0}
   lifeUIPolicy: 0
   timerText: {fileID: 0}
   killedEnemiesText: {fileID: 0}
