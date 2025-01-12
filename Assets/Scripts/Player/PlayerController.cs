@@ -337,8 +337,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void KilledEnemy(int points){
-        GameManager.instance.score += points;
+    public void KilledEnemy(){
         GameManager.instance.enemiesKilled += 1;
     }
 

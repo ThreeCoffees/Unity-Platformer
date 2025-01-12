@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private float moveRange = 3.0f;
     [Range(0.01f, 20.0f)] [SerializeField] private float moveSpeed = 3.0f;
-    [SerializeField] private int points = 1;
+    [SerializeField] private int points = 3;
     [SerializeField] private int damage = 1;
 
     private bool isMovingRight = true;
@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Player")) {
             if (other.transform.position.y > this.transform.position.y) {
                 Die();
-                other.gameObject.GetComponentInParent<PlayerController>().KilledEnemy(points);
+                other.gameObject.GetComponentInParent<PlayerController>().KilledEnemy();
             } else {
                 other.gameObject.GetComponentInParent<PlayerController>().TakeDamage(damage);
             }
