@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
 public class GameManager : MonoBehaviour
 {
     public enum GameState { 
@@ -155,6 +154,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int total_score;
+    /// <summary>
+    /// seconds per level - 60 by default
+    /// </summary>
+    [SerializeField] private int reward_timer = 60; 
+
     public void LoadNewScene(string sceneName){
         SceneManager.LoadScene(sceneName);
     }
@@ -210,10 +215,11 @@ public class GameManager : MonoBehaviour
         pauseScreen.SetActive(false);
         gameOverScreen.SetActive(false);
         levelFinishedScreen.SetActive(true);
+        calculateTotalScore();
 
         highScore = PlayerPrefs.GetInt(currScene.name + "_HighScore");
-        if(highScore < score){
-            highScore = score;
+        if(highScore < total_score){
+            highScore = total_score;
             PlayerPrefs.SetInt(currScene.name + "_HighScore", highScore);
         }
         bestTime = PlayerPrefs.GetFloat(currScene.name + "_BestTime");
@@ -223,7 +229,7 @@ public class GameManager : MonoBehaviour
         }
 
         highScoreText.GetComponent<TMP_Text>().text = "High Score: " + highScore;
-        scoreText.GetComponent<TMP_Text>().text = "Score: " + score;
+        scoreText.GetComponent<TMP_Text>().text = "Score: " + total_score;
         bestTimeText.GetComponent<TMP_Text>().text = "Best Time: " + timerToText(bestTime);
         timeText.GetComponent<TMP_Text>().text = "Time: " + timerToText(timer);
     }
@@ -331,5 +337,28 @@ public class GameManager : MonoBehaviour
         }
         lives = maxLives;
         Debug.Log(lives);
+    }
+
+    public int calculateTotalScore(){
+        total_score =
+            score * 10 +
+            enemiesKilled * 30 +
+            lives * 50 +
+            (int) clamp( remap(0, reward_timer, 500, 0, timer), 0, 500);
+            ;
+
+        Debug.Log("Total Score: " + total_score);
+
+        return total_score;
+    }
+
+    private static float remap(float min1, float max1, float min2, float max2, float val){
+        return min2 + (val - min1) * (max2 - min2) / (max1 - min1);
+    }
+
+    private static float clamp(float val, float min, float max){
+        if(val < min) return min;
+        if(val > max) return max;
+        return val;
     }
 }
