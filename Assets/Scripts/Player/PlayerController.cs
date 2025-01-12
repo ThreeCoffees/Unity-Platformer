@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Respawning")]
     [SerializeField] private GameObject respawnPoint;
+	[SerializeField] private float invincibilityTimer = 0.5f;
     private GameObject checkPoint;
     
     [Header("Audio")]
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     public float lastOnGroundTime {get; private set;}
     public float lastJumpInputTime {get; private set;}
+    public float timeSinceLastHurt {get; private set;}
     public bool isInJumpPoint {get; private set;}
     
     private bool isFacingRight = true;
@@ -109,6 +111,7 @@ public class PlayerController : MonoBehaviour
         // Timers
         lastOnGroundTime -= Time.deltaTime;
         lastJumpInputTime -= Time.deltaTime;
+        timeSinceLastHurt += Time.deltaTime;
 
         // Jump
         if (isJumping && rigidBody.velocity.y < 0) {
@@ -340,6 +343,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void TakeDamage(int damage){
+        if(timeSinceLastHurt < invincibilityTimer){
+            return;
+            Debug.Log("Invincible");
+        }
+        Debug.Log("Took Damage");
+        timeSinceLastHurt = 0f;
         animator.SetTrigger("Hurt");
         GameManager.instance.lives -= damage;
         audioSource.PlayOneShot(hurtSound, AudioListener.volume);

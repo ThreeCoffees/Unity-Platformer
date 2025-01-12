@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject levelFinishedScreen;
     [SerializeField] private GameObject highScoreText;
     [SerializeField] private GameObject scoreText;
+    [SerializeField] private GameObject bestTimeText;
+    [SerializeField] private GameObject timeText;
     [SerializeField] private GameObject graphicsQualityText;
 
     [SerializeField] public Canvas inGameCanvas;
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     private Image[] livesIcons;
     [Header("Lives")]
+	[SerializeField] private bool infiniteLives = false;
     [SerializeField] private GameObject livesIconsSpawner;
     [Range(1, 10)] [SerializeField] public int maxLives = 3;
     [SerializeField] private GameObject lifeIcon;
@@ -80,6 +83,8 @@ public class GameManager : MonoBehaviour
             return _lives;
         }
         set {
+			if(infiniteLives) return;
+			
             _lives = value;
             Debug.Log("Lives: " + _lives);
             
@@ -108,7 +113,7 @@ public class GameManager : MonoBehaviour
                 // transform.position = respawnPoint.transform.position; 
                 // lives = maxLives;
                 
-                GameOver();
+				GameOver();
             }
         }
     }
@@ -123,6 +128,7 @@ public class GameManager : MonoBehaviour
 
     Scene currScene;
     int highScore;
+    float bestTime = Mathf.Infinity;
 
     private int _enemiesKilled = 0;
     public int enemiesKilled {
@@ -210,9 +216,16 @@ public class GameManager : MonoBehaviour
             highScore = score;
             PlayerPrefs.SetInt(currScene.name + "_HighScore", highScore);
         }
+        bestTime = PlayerPrefs.GetFloat(currScene.name + "_BestTime");
+        if(bestTime > timer){
+            bestTime = timer;
+            PlayerPrefs.SetFloat(currScene.name + "_BestTime", bestTime);
+        }
 
         highScoreText.GetComponent<TMP_Text>().text = "High Score: " + highScore;
         scoreText.GetComponent<TMP_Text>().text = "Score: " + score;
+        bestTimeText.GetComponent<TMP_Text>().text = "Best Time: " + timerToText(bestTime);
+        timeText.GetComponent<TMP_Text>().text = "Time: " + timerToText(timer);
     }
 
     public void GameOver(){
@@ -250,6 +263,9 @@ public class GameManager : MonoBehaviour
         if(!PlayerPrefs.HasKey(currScene.name + "_HighScore")){
             PlayerPrefs.SetInt(currScene.name + "_HighScore", 0);
         }
+        if(!PlayerPrefs.HasKey(currScene.name + "_BestTime")){
+            PlayerPrefs.SetFloat(currScene.name + "_BestTime", Mathf.Infinity);
+        }
 
         if(inGameCanvas != null){
             SetKeyCount();
@@ -269,12 +285,16 @@ public class GameManager : MonoBehaviour
     protected virtual void Update(){
         if(currGameState == GameState.IN_GAME){
             timer += Time.deltaTime;
-            string text = string.Format("{0:00}:{1:00}.{2:00}", 
-                Mathf.Floor(timer / 60), Mathf.Floor(timer % 60), Mathf.Floor((timer * 100) % 100));
             if(timerText != null) {
-                timerText.text = text;
+                timerText.text = timerToText(timer);
             }
         }
+    }
+
+    string timerToText(float timer){
+        string text = string.Format("{0:00}:{1:00}.{2:00}", 
+                Mathf.Floor(timer / 60), Mathf.Floor(timer % 60), Mathf.Floor((timer * 100) % 100));
+        return text;
     }
 
     public void SetVolume(float vol){
@@ -302,6 +322,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void SetLivesCount(){
+		if(infiniteLives) return;
         livesIcons = new Image[maxLives];
         for(int i = 0; i < maxLives; i++){
             GameObject life = Instantiate(lifeIcon, livesIconsSpawner.transform);

@@ -14,4 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 2.unity
     guid: f0c508cbdee976342bd482cc7e4012fe
+  - enabled: 1
+    path: Assets/Scenes/FinalizedLevels/levelPicker.unity
+    guid: b2e83a77defd4ba439e5f909a48683db
+  - enabled: 1
+    path: Assets/Scenes/FinalizedLevels/PuzzleLevel.unity
+    guid: 83f9c14dbbc899549b00f7a518f5a406
+  - enabled: 1
+    path: Assets/Scenes/FinalizedLevels/TutorialLevel.unity
+    guid: 05ba998d75ccecc88b7a4c2cc4b51209
+  - enabled: 1
+    path: Assets/Scenes/FinalizedLevels/UnderOverUnderground.unity
+    guid: c127bb36ac401a14c89d8d84ba903405
   m_configObjects: {}
