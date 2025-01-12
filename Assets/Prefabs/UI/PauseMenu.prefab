@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5686275}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -649,6 +649,18 @@ PrefabInstance:
     - target: {fileID: 698853014963341820, guid: 238fc267c8b2c9a7f92be01077bbc0d9, type: 3}
       propertyPath: m_text
       value: Paused
+      objectReference: {fileID: 0}
+    - target: {fileID: 698853014963341820, guid: 238fc267c8b2c9a7f92be01077bbc0d9, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 698853014963341820, guid: 238fc267c8b2c9a7f92be01077bbc0d9, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 698853014963341820, guid: 238fc267c8b2c9a7f92be01077bbc0d9, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6311441716400158715, guid: 238fc267c8b2c9a7f92be01077bbc0d9, type: 3}
       propertyPath: m_Name
