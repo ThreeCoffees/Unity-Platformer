@@ -179,6 +179,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMovement(InputAction.CallbackContext ctx){
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
         moveDirection = ctx.ReadValue<Vector2>();
 
         if(moveDirection.x >= 0.01){
@@ -189,12 +190,14 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext ctx){
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
         if(ctx.started){
             lastJumpInputTime = jumpBuffer;
         }
     }
 
     public void OnJumpCut(InputAction.CallbackContext ctx){
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
         if(ctx.started){
             if(canJumpCut()) {
                 isJumpCut = true;
@@ -203,6 +206,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
 		if(!grappleAllowed) { return; }
         if(grappleState != GrappleState.Released){ return; }
 
@@ -250,6 +254,7 @@ public class PlayerController : MonoBehaviour
 
     public void onGrapplePull(InputAction.CallbackContext ctx){
 		if(!grappleAllowed) { return; }
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
         // if (grappleState != GrappleState.Launched){ return; }
         if (grapplingSpring.enabled == false){ return; }
 
@@ -264,10 +269,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void pullGrapple(){ 
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
         grapplingSpring.distance -= grapplePullForce * Time.deltaTime;
     }
 
     public void onGrappleRelease(InputAction.CallbackContext ctx){
+        if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
 		if(!grappleAllowed) { return; }
         // if (grappleState == GrappleState.Released){ return; }
 
