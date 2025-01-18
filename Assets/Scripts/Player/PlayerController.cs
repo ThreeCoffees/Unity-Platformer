@@ -230,26 +230,62 @@ public class PlayerController : MonoBehaviour
     	);
 	}
 
+	private float raycastAngleOfIteration(int i) {
+		float side = (i%2)*2-1; // alternate 1/-1
+		float magnitude = ((int)((i+1)/2))*0.03f; // (0, 1, 1, 2, 2, 3, 3)*0.03
+		float angle = side * magnitude;
+
+		return angle;
+	}
+
 	public RaycastHit2D? getGrappleConnectionPoint() {
 		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 		Vector2 playerPosition = transform.position;
 		Vector2 direction = (mousePosition - playerPosition).normalized;
 		
-		for(int i = 0; i < 9; i ++) {
-			float side = (i%2)*2-1; // alternate 1/-1
-			float magnitude = ((int)((i+1)/2))*0.02f; // (0, 1, 1, 2, 2, 3, 3)*0.01
-			float angle = side * magnitude;
+		bool found = false;
+		RaycastHit2D result = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
+
+		// sweeping pass - search for first hit
+		int i = 0;
+		while(i < 9) {
+			float angle = raycastAngleOfIteration(i);
 
 			Vector2 adjustedDirection = rotate(direction, angle);
 
 			Debug.DrawLine(transform.position, transform.position + (Vector3)adjustedDirection*20);
-			RaycastHit2D hit = Physics2D.Raycast(playerPosition, adjustedDirection, grappleMaxRange, groundLayer);
-			if(hit.collider != null && !hit.collider.gameObject.CompareTag("Spikes") && hit.collider.attachedRigidbody != null) {
-				return  hit;
+			result = Physics2D.Raycast(playerPosition, adjustedDirection, grappleMaxRange, groundLayer);
+			if(result.collider != null && !result.collider.gameObject.CompareTag("Spikes") && result.collider.attachedRigidbody != null) {
+				found = true;
+				break;
+			}
+			i++;
+		}
+
+		if(!found) {
+			return null;
+		}
+
+		if(i != 0) {
+			// binary search - search between first hit and previous non-hit
+			float high = raycastAngleOfIteration(i);
+			float low = raycastAngleOfIteration(i-2);
+
+			for(int j = 0; j < 5; j ++) {
+				float mid = (high + low) / 2;
+				Vector2 adjustedDirection = rotate(direction, mid);
+				RaycastHit2D hit = Physics2D.Raycast(playerPosition, adjustedDirection, grappleMaxRange, groundLayer);
+				if(hit.collider != null && !hit.collider.gameObject.CompareTag("Spikes") && hit.collider.attachedRigidbody != null) {
+					high = mid;
+					result = hit;
+				}
+				else {
+					low = mid;
+				}
 			}
 		}
 
-		return null;
+		return result;
 	}
 
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
