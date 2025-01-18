@@ -175,6 +175,18 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
+    public void OnRestart(InputAction.CallbackContext ctx){
+        if(ctx.started){
+            RestartScene();
+        }
+    }
+
+    public void OnPause(InputAction.CallbackContext ctx){
+        if(ctx.started){
+            Pause();
+        }
+    }
+
     void SetGameState(GameState newGameState) {
         if(inGameCanvas == null) return;
         currGameState = newGameState;
