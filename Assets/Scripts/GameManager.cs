@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int reward_timer = 60; 
 
     public void LoadNewScene(string sceneName){
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
     public void ExitGame(){
@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void RestartScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
     void SetGameState(GameState newGameState) {
