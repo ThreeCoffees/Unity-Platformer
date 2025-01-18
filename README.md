@@ -16,3 +16,8 @@ Crosshair:
 
 Font:
 - [Joystix Monospace](https://typodermicfonts.com/proportional-joystix/)
+
+Trailer music:
+- license Attribution 3.0 Unported (CC BY 3.0) (https://creativecommons.org/licenses/by/3.0/deed.en)
+- https://www.youtube.com/watch?v=knRAM6AHcKI&list=RDQMJT0Z-69fQiw&index=4
+- Changes: cut out the first climax
