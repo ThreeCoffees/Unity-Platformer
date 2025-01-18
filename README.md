@@ -13,3 +13,6 @@ Sound effects: [Game Sound Solutions - 8 bits Elements](https://assetstore.unity
 Crosshair:
 - CC0
 - https://opengameart.org/content/64-crosshairs-pack-split
+
+Font:
+- [Joystix Monospace](https://typodermicfonts.com/proportional-joystix/)
