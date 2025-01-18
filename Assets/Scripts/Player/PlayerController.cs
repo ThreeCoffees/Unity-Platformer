@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
 	private enum GrappleState {
         Released,
+		Preparing,
         Launched,
         Pulled
     } 
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 100.0f)] [SerializeField] private float grapplePullForce = 10.0f;
 	[SerializeField] private GameObject ropeWrapper;
 	[SerializeField] private SpriteRenderer ropeSprite;
+	[SerializeField] private GameObject crosshair;
 
 
     [Header("Respawning")]
@@ -108,6 +110,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		// draw gizmos and crosshair
+		if(grappleState == GrappleState.Preparing) {
+			var hitResult = getGrappleConnectionPoint();
+			if(hitResult.HasValue) {
+				RaycastHit2D hit = hitResult.Value;
+				crosshair.transform.position = hit.point;
+				crosshair.SetActive(true);
+			}
+			else {
+				crosshair.SetActive(false);
+			}
+		}
+		else {
+			crosshair.SetActive(false);
+		}
+
         // Timers
         lastOnGroundTime -= Time.deltaTime;
         lastJumpInputTime -= Time.deltaTime;
@@ -205,48 +223,67 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+	public static Vector2 rotate(Vector2 v, float delta) {
+		return new Vector2(
+			v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
+			v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
+    	);
+	}
+
+	public RaycastHit2D? getGrappleConnectionPoint() {
+		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+		Vector2 playerPosition = transform.position;
+		Vector2 direction = (mousePosition - playerPosition).normalized;
+		
+		for(int i = 0; i < 9; i ++) {
+			float side = (i%2)*2-1; // alternate 1/-1
+			float magnitude = ((int)((i+1)/2))*0.02f; // (0, 1, 1, 2, 2, 3, 3)*0.01
+			float angle = side * magnitude;
+
+			Vector2 adjustedDirection = rotate(direction, angle);
+
+			Debug.DrawLine(transform.position, transform.position + (Vector3)adjustedDirection*20);
+			RaycastHit2D hit = Physics2D.Raycast(playerPosition, adjustedDirection, grappleMaxRange, groundLayer);
+			if(hit.collider != null && !hit.collider.gameObject.CompareTag("Spikes") && hit.collider.attachedRigidbody != null) {
+				return  hit;
+			}
+		}
+
+		return null;
+	}
+
     public void onGrappleLaunch(InputAction.CallbackContext ctx){
         if(GameManager.instance.currGameState != GameManager.GameState.IN_GAME) {return;}
 		if(!grappleAllowed) { return; }
-        if(grappleState != GrappleState.Released){ return; }
+        if(grappleState != GrappleState.Released && grappleState != GrappleState.Preparing){ return; }
 
         if(ctx.started){
             // Debug.Log("Preparing grapple");
+			grappleState = GrappleState.Preparing;
             Time.timeScale = grappleSlowMotionFactor;
         }
         if(ctx.canceled){
-            // Debug.Log("Launching grapple");
-            // Project a ray through mouse position up to a nearby collider
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector2 playerPosition = transform.position;
-            Vector2 direction = (mousePosition - playerPosition).normalized;
-            
             // If the ray hits a collider, create a spring joint between the player and the hit rigidbody
-            RaycastHit2D hit = Physics2D.Raycast(playerPosition, direction, grappleMaxRange, groundLayer);
-            if(hit.collider != null){
-                if(hit.collider.gameObject.CompareTag("Spikes")){
-                    Debug.Log("Hit spikes");
-                    Time.timeScale = 1.0f;
-                    return;
-                }
-                // Debug.Log("Grapple launched");
-                Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
-                if(hitRigidbody == null){
-                    Debug.LogWarning("Grapple hit a non-rigidbody collider");
-                    Time.timeScale = 1.0f;
-                    return;
-                }
-                
-                grapplingSpring.connectedBody = hitRigidbody;
-                grapplingSpring.distance = Vector2.Distance(playerPosition, hit.point);
-                grapplingSpring.connectedAnchor = hitRigidbody.transform.InverseTransformPoint(hit.point);
+            var hitResult = getGrappleConnectionPoint();
+			if(!hitResult.HasValue) {
+				grappleState = GrappleState.Released;
+				Time.timeScale = 1.0f;
+				return;
+			}
+			RaycastHit2D hit = hitResult.Value;
+			Rigidbody2D hitRigidbody = hit.collider.attachedRigidbody;
+			
+			Vector2 playerPosition = transform.position;
 
-                Debug.Log(grapplingSpring.attachedRigidbody);
-                
-                grapplingSpring.enabled = true;
-                grappleState = GrappleState.Launched;
-                audioSource.PlayOneShot(grappleLaunchSound, AudioListener.volume);
-            }
+			grapplingSpring.connectedBody = hitRigidbody;
+			grapplingSpring.distance = Vector2.Distance(playerPosition, hit.point);
+			grapplingSpring.connectedAnchor = hitRigidbody.transform.InverseTransformPoint(hit.point);
+
+			Debug.Log(grapplingSpring.attachedRigidbody);
+			
+			grapplingSpring.enabled = true;
+			grappleState = GrappleState.Launched;
+			audioSource.PlayOneShot(grappleLaunchSound, AudioListener.volume);
 
             // Debug.Log("Grapple:"+grappleState + " Connected to:"+hit.collider);
             Time.timeScale = 1.0f;
