@@ -15,4 +15,4 @@ Crosshair:
 - https://opengameart.org/content/64-crosshairs-pack-split
 
 Font:
-- [Joystix Monospace](https://www.1001fonts.com/joystix-font.html)
+- [Joystix Monospace](https://typodermicfonts.com/proportional-joystix/)
