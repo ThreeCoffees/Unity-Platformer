@@ -658,7 +658,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 2}
   m_AutoConfigureDistance: 0
   m_Distance: 0.005
-  m_DampingRatio: 0
+  m_DampingRatio: 0.3
   m_Frequency: 1
 --- !u!1 &4661276389522337905
 GameObject:
